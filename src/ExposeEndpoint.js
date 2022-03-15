@@ -1,0 +1,3 @@
+const expose = () => {
+    // Expose endpoint
+}

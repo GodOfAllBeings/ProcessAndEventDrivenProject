@@ -1,0 +1,3 @@
+const apiFetch = () => {
+    // Fetch trends
+}
