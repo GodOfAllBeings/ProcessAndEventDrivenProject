@@ -20,7 +20,7 @@ const error = false;
         
         req.files.forEach(file => {
 
-            list += `file ${file.filename}`
+            list += `file ${file}`
             list += "\n"
             
         });
@@ -30,6 +30,8 @@ const error = false;
         writeStream.write(list)
 
         writeStream.end()
+        
+        
 
         exec(`ffmpeg -safe 0 -f concat -i ${listFilePath} -c copy ${outputFilePath}`, (error, stdout, stderr) => {
           

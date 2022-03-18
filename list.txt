@@ -1,2 +1,2 @@
-file undefined
-file undefined
+file ../assets/catvideo1.mp4
+file ../assets/catvideo2.mp4
