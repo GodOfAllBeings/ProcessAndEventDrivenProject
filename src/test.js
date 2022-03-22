@@ -10,7 +10,7 @@ var listFilePath = "./list.txt";
 
 var outputFilePath = Date.now() + "output.mp4";
 
-const req = { files: ["./assets/cats/cat1.mp4", "./assets/dogs/dog1.mp4"] };
+const req = { files: ["./assets/cat1.mp4", "./assets/dog1.mp4"] };
 const error = false;
 
 // app.post('/merge',upload.array('files',1000),(req,res) => {
