@@ -66,7 +66,7 @@ app.post("/merge", upload.array("files", 1000), (req, res) => {
     writeStream.end();
 
     exec(
-      `ffmpeg -safe 0 -f concat -i ${listFilePath} -c copy ${outputFilePath}`,
+      `ffmpeg -f concat -i ${listFilePath} -c copy ${outputFilePath}`,
       (error, stdout, stderr) => {
         if (error) {
           console.log(`error: ${error.message}`);
