@@ -2,8 +2,6 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
-var list = "";
-var listFilePath = "public/uploads/" + Date.now() + "list.txt";
 var outputFilePath = Date.now() + "output.mp4";
 const bodyParser = require("body-parser");
 const multer = require("multer");
@@ -51,7 +49,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/merge", upload.array("files", 1000), (req, res) => {
-  list = "";
   let ffm = "ffmpeg";
   let filters = ' -filter_complex "';
   let filterEnd = "";
@@ -65,22 +62,8 @@ app.post("/merge", upload.array("files", 1000), (req, res) => {
 
     ffm += filters;
     ffm += filterEnd;
-    req.files.forEach((file) => {
-      list += `file ${file.filename}`;
-      list += "\n";
-    });
-
     console.log(ffm);
-
-    var writeStream = fs.createWriteStream(listFilePath);
-
-    writeStream.write(list);
-
-    writeStream.end();
     exec(
-      // Old way of doing it. No longer uses the .txt file.
-      // `ffmpeg -f concat -i ${listFilePath} -c copy ${outputFilePath}`,
-
       // Crops, scales and sets fixed FPS. The String ffm should create something like this example:
       // `ffmpeg -i assets/ad1.mp4 -i assets/cat1.mp4 -i assets/dog1.mp4 -filter_complex \
       // "[0]crop=720:720:280:0, scale=640:640, fps=30[0v]; \
@@ -101,8 +84,7 @@ app.post("/merge", upload.array("files", 1000), (req, res) => {
             req.files.forEach((file) => {
               fs.unlinkSync(file.path);
             });
-            fs.unlinkSync(listFilePath);
-            fs.unlinkSync(outputFilePath);
+            // fs.unlinkSync(outputFilePath);
           });
         }
       }
