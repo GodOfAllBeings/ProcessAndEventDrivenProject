@@ -10,7 +10,7 @@ var listFilePath = './list.txt';
 
 var outputFilePath = Date.now() + 'output.mp4'
 
-const req = {files : ['../assets/catvideo1.mp4', '../assets/catvideo2.mp4'] };
+const req = {files : ['../assets/cat1.mp4', '../assets/cat2.mp4'] };
 const error = false;
 
 
