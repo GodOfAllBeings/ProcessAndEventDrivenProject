@@ -106,27 +106,23 @@ app.post('/merge',upload.array('files',1000),(req,res) => {
             }
             else{
                 console.log("videos are successfully merged")
-            res.download(outputFilePath,(err) => {
-                if(err) throw err
+                res.download(outputFilePath,(err) => {
+                    if(err) throw err
 
-                req.files.forEach(file => {
-                    fs.unlinkSync(file.path)                    
-                });
+                    req.files.forEach(file => {
+                        fs.unlinkSync(file.path)                    
+                    });
 
-                fs.unlinkSync(listFilePath)
-                fs.unlinkSync(outputFilePath)
-
-              
-
-            })
-        }
-            
+                    fs.unlinkSync(listFilePath)
+                    fs.unlinkSync(outputFilePath)
+                })
+            }
         })
     }
 })
 
 app.listen(PORT,() => {
-    console.log(`App is listening on Port ${PORT}`)
+    console.log(`App is listening on http://localhost:${PORT}`)
 })
 
 // http://127.0.0.1:3000/
