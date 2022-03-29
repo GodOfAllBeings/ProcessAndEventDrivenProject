@@ -1,18 +1,47 @@
 const res = require("express/lib/response");
+const fs = require("fs");
+const path = require("path");
+
+const trendsTest5 = require('./trends_test_5_canada.json');
 
 const axios = require("axios").default;
 
 main();
+// Core Process Portfolio - Importance vs health
 
 async function main() {
-  
+
+  //fetch("trends_test_5_canada.json").then(x => console.log(x));
+
+  let f = fs.read(path.join(__dirname, "./trends_test_5_canada.json"));
+
+
   let catFact = await getData();
   console.log("res:");
   console.log(JSON.stringify(catFact));
 
 
   let googleTrend = await getTrendsData();
-  
+  let parsedTrends = googleTrend.googleTrendingSearchList.map(search => search.trendingSearchTitle);
+//   googleTrend.googleTrendingSearchList.map(search => search.trendingSearchTitle)
+//      (15) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+//    0:{rankId: 1, searchTitle: 'Taylor Hawkins'}
+//      1:{rankId: 2, searchTitle: 'Bridgerton'}
+//      2:{rankId: 3, searchTitle: 'Raptors'}
+//      3:{rankId: 4, searchTitle: 'Triple H'}
+//      4:{rankId: 5, searchTitle: 'Saudi Arabia Grand Prix'}
+//      5:{rankId: 6, searchTitle: 'Venus Williams'}
+//      6:{rankId: 7, searchTitle: 'CODA'}
+//      7:{rankId: 8, searchTitle: 'Bridgerton season 2 cast'}
+//      8:{rankId: 9, searchTitle: 'Oscar nominations 2022'}
+//      9:{rankId: 10, searchTitle: 'Doja Cat'}
+//      10:{rankId: 11, searchTitle: 'Raptors game'}
+//      11:{rankId: 12, searchTitle: 'Egypt vs Senegal'}
+//      12:{rankId: 13, searchTitle: 'King Richard'}
+//      13:{rankId: 14, searchTitle: 'Hayden Panettiere'}
+//      14:{rankId: 15, searchTitle: 'St. Peter's'}
+
+
   //localStorage.setItem('api_response', JSON.stringify(result));
   // console.log(localStorage.getItem('api_response'));
   console.log("Trends res:");
