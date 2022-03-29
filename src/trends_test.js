@@ -11,7 +11,7 @@ async function main(countryCode) {
   let validCC = validCountryCode(cc);
 
   if(validCC != true){
-    // handle non-valid country code is passed
+    return;
   }
    
   let googleTrend = await getTrendsData(cc);
