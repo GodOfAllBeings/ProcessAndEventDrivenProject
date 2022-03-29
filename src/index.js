@@ -92,8 +92,34 @@ app.post("/merge", upload.array("files", 1000), (req, res) => {
   }
 });
 
+// http://127.0.0.1:3000/
 app.listen(PORT, () => {
   console.log(`App is listening on http://localhost:${PORT}`);
 });
 
-// http://127.0.0.1:3000/
+//GET ALL VIDEOS
+const getAllVideoNames = () => {
+  dir = path.join(__dirname, '../assets/videos');
+  var files = fs.readdirSync(dir);
+  return files;
+}
+
+//Get all videos containing a substring, e.g. all videos with "cat" in the name
+const getAllVideoWithPartOfName = (substring) => {
+  const videos = getAllVideoNames();
+  return videos.filter(video => {return video.includes(substring)});
+}
+
+// The scheduler is set to 20:00 localtime.
+const schedule = require('node-schedule');
+// Scheduler is * * * * * * --> Second(0-60) Minute(0-60) Hour(0-23) dayOfMonth(1-31) Month(1-12) dayOfWeek(1-7)
+var scheduler = schedule.scheduleJob('0 0 20 * * *', function(){
+
+  console.log(new Date());
+  
+  for(let i = 0; i < 10; i++){
+      // let res = CallAPI()
+      // SaveData(res)
+  }
+  // trend = findBestTrend();
+});
