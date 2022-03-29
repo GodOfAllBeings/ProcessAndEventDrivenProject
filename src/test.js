@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 var list = "";
 var listFilePath = "./list.txt";
 var outputFilePath = Date.now() + "output.mp4";
-const req = { files: ["./assets/cat1.mp4", "./assets/dog1.mp4"] };
+const req = { files: ["./assets/videos/cat1.mp4", "./assets/videos/dog1.mp4"] };
 
 // if (req.files) {
 //   req.files.forEach((file) => {
