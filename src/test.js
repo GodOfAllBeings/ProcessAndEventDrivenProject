@@ -65,3 +65,16 @@ const getAllVideoWithPartOfName = (substring) => {
     const videos = getAllVideoNames();
     return videos.filter(video => {return video.includes(substring)});
 }
+
+const schedule = require('node-schedule');
+// Scheduler is * * * * * * --> Second(0-60) Minute(0-60) Hour(0-23) dayOfMonth(1-31) Month(1-12) dayOfWeek(1-7)
+var scheduler = schedule.scheduleJob('0 0 20 * * *', function(){
+    // Do stuff
+    console.log(new Date());
+    for(let i = 0; i < 10; i++){
+        // let res = CallAPI()
+        // SaveData(res)
+    }
+
+    // trend = findBestTrend();
+});
