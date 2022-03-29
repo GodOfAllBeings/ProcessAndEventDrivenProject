@@ -77,7 +77,7 @@ async function getTrendsData() {
     url: `${baseUrl}${path}`,
     headers: {
       'x-rapidapi-host': 'google-trends.p.rapidapi.com',
-      'x-rapidapi-key': 'b8fff8da4bmsh768052460ff46fbp12e000jsn73a2c881a5e1'
+      'x-rapidapi-key': 'xxxxxxxxxxxxxx'
     }
   };
   
