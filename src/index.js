@@ -92,7 +92,7 @@ app.post("/merge", upload.array("files", 1000), (req, res) => {
   }
 });
 
-// http://127.0.0.1:3000/
+http://127.0.0.1:3000/
 app.listen(PORT, () => {
   console.log(`App is listening on http://localhost:${PORT}`);
 });
@@ -114,12 +114,14 @@ const getAllVideoWithPartOfName = (substring) => {
 const schedule = require('node-schedule');
 // Scheduler is * * * * * * --> Second(0-60) Minute(0-60) Hour(0-23) dayOfMonth(1-31) Month(1-12) dayOfWeek(1-7)
 var scheduler = schedule.scheduleJob('0 0 20 * * *', function(){
-
+  const countries = ["CA", "DE", "NO", "US", "SE"]; // "GB", "FR", "AU", "BE", "CH"
   console.log(new Date());
   
-  for(let i = 0; i < 10; i++){
+  countries.forEach((country, index) => {
+    if(country !== null && country !== undefined){
       // let res = CallAPI()
       // SaveData(res)
-  }
+    }
+  });
   // trend = findBestTrend();
 });
