@@ -4,14 +4,9 @@ const path = require("path");
 const axios = require("axios").default;
 
 main();
-// Core Process Portfolio - Importance vs health
 
 async function main(countryCode) {
   let cc = countryCode ?? "ca";
-
-  // let catFact = await getData();
-  // console.log("res:");
-  // console.log(JSON.stringify(catFact));
 
   let validCC = validCountryCode(cc);
 
@@ -27,9 +22,6 @@ async function main(countryCode) {
   //      0:{rankId: 1, searchTitle: 'Taylor Hawkins'}
   // let parsedTrends = googleTrend.googleTrendingSearchList.map(search => search.trendingSearchTitle);
 
-  // console.log("Trends res:");
-  // console.log(JSON.stringify(googleTrend));
-
   // console.log("Trends:");
   // googleTrend.googleTrendingSearchList.map(trend => {
   //   return `${trend.trendingSearchTitle.rankId} : ${trend.trendingSearchTitle.searchTitle}`
@@ -37,15 +29,6 @@ async function main(countryCode) {
 
   return googleTrend;
 }
-
-// async function getData() {
-//   let result;
-//   await axios({
-//     method: 'GET',
-//     url: 'https://catfact.ninja/fact'
-//   }).then(resp => result = resp.data);
-//   return result;
-// }
 
 
 function validCountryCode(code) {
