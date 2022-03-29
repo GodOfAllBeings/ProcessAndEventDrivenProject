@@ -1,0 +1,114 @@
+{
+    "googleTrendingSearchList": [
+        {
+            "trendingSearchToken": "d0640958-0290-4999-8d7f-f9e6bd5a5b82:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 1,
+                "searchTitle": "Tornado watch"
+            }
+        },
+        {
+            "trendingSearchToken": "8b7deb9d-1d06-42c5-b8ae-90d08bba0219:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 2,
+                "searchTitle": "Matt Ryan"
+            }
+        },
+        {
+            "trendingSearchToken": "1e756dbb-01a7-40c0-96c6-b63a04e239f8:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 3,
+                "searchTitle": "Boeing 737"
+            }
+        },
+        {
+            "trendingSearchToken": "df41f0fc-ca40-4e52-b7f0-815ffb5331a9:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 4,
+                "searchTitle": "Purdue basketball"
+            }
+        },
+        {
+            "trendingSearchToken": "3987be80-4cbc-4cde-8018-b5003262c6cf:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 5,
+                "searchTitle": "Wisconsin Basketball"
+            }
+        },
+        {
+            "trendingSearchToken": "ba4c4bf6-bb2f-4262-95a5-c304a835cfea:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 6,
+                "searchTitle": "NHL trade deadline"
+            }
+        },
+        {
+            "trendingSearchToken": "16a16fdb-74a5-486b-a723-d4a03fbe3752:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 7,
+                "searchTitle": "Kylie Jenner"
+            }
+        },
+        {
+            "trendingSearchToken": "97ced239-59bf-449d-b19c-666a6bc8a54e:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 8,
+                "searchTitle": "Trevor Story"
+            }
+        },
+        {
+            "trendingSearchToken": "82873b02-d2a6-47e7-9b63-b5f0d3a76a0c:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 9,
+                "searchTitle": "Jergens Ultra Healing Moisturizer recall"
+            }
+        },
+        {
+            "trendingSearchToken": "97d4ef5c-9ba7-4afd-8c03-9daf425be8fb:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 10,
+                "searchTitle": "Lakers vs Cavaliers"
+            }
+        },
+        {
+            "trendingSearchToken": "17d4ab2e-ab9f-4fa3-8d92-729b0579d5c9:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 11,
+                "searchTitle": "Dairy Queen Free Cone Day"
+            }
+        },
+        {
+            "trendingSearchToken": "2b34e62f-2d75-4b8a-938b-933669adba73:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 12,
+                "searchTitle": "American Song Contest"
+            }
+        },
+        {
+            "trendingSearchToken": "0a8b37b9-4f2a-4fe6-a14d-121384a0e081:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 13,
+                "searchTitle": "Rachel Levine"
+            }
+        },
+        {
+            "trendingSearchToken": "c7855a33-e3f4-46d4-b2a1-8d173360e70a:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 14,
+                "searchTitle": "Rachel Zegler"
+            }
+        },
+        {
+            "trendingSearchToken": "a4f31d7f-6268-4fb3-b3b7-5f5613e069a0:US-20220321",
+            "trendingSearchTitle": {
+                "rankId": 15,
+                "searchTitle": "Urban Meyer"
+            }
+        }
+    ],
+    "userRequestId": "requestId",
+    "friendlyFormattedDate": "Monday, 21 March 2022",
+    "tokenExpirationTime": "Tuesday, 22 March 2022 21:38:17",
+    "tokenExpirationTimeInUtc": "Tuesday, 22 March 2022 10:38:17",
+    "errorMessage": "N/A"
+}

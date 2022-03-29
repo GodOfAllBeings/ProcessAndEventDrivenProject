@@ -1,0 +1,51 @@
+{
+    "googleTrendingSearchList": [
+        {
+            "trendingSearchToken": "78956ad1-3d25-4afd-82b2-5158674512dc:SE-20220325",
+            "trendingSearchTitle": {
+                "rankId": 1,
+                "searchTitle": "SEB"
+            }
+        },
+        {
+            "trendingSearchToken": "4c00813b-d81d-4051-8717-c6a3f209aa97:SE-20220325",
+            "trendingSearchTitle": {
+                "rankId": 2,
+                "searchTitle": "Våfflor"
+            }
+        },
+        {
+            "trendingSearchToken": "0739ba3c-7a2f-4374-9b4d-1ae368cf9c30:SE-20220325",
+            "trendingSearchTitle": {
+                "rankId": 3,
+                "searchTitle": "HV71"
+            }
+        },
+        {
+            "trendingSearchToken": "fe393adf-1c23-4f21-b08e-4f9d84bf0540:SE-20220325",
+            "trendingSearchTitle": {
+                "rankId": 4,
+                "searchTitle": "Sweden"
+            }
+        },
+        {
+            "trendingSearchToken": "f3f3832c-5604-421a-a241-f47b13399603:SE-20220325",
+            "trendingSearchTitle": {
+                "rankId": 5,
+                "searchTitle": "Aron Andersson"
+            }
+        },
+        {
+            "trendingSearchToken": "7e7c907e-8ec1-424a-88b3-1a57a9aea639:SE-20220325",
+            "trendingSearchTitle": {
+                "rankId": 6,
+                "searchTitle": "Tim Lobinger"
+            }
+        }
+    ],
+    "userRequestId": "requestId",
+    "friendlyFormattedDate": "Friday, 25 March 2022",
+    "tokenExpirationTime": "Saturday, 26 March 2022 00:18:10",
+    "tokenExpirationTimeInUtc": "Friday, 25 March 2022 13:18:10",
+    "errorMessage": "N/A"
+}

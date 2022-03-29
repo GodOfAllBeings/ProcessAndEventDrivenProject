@@ -1,0 +1,65 @@
+{
+    "googleTrendingSearchList": [
+        {
+            "trendingSearchToken": "172d242f-3f1b-4615-a575-2e2769469f61:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 1,
+                "searchTitle": "Winnipeg Jets"
+            }
+        },
+        {
+            "trendingSearchToken": "131266ff-0450-409a-9e1b-581b4df202f8:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 2,
+                "searchTitle": "Sharks vs Oilers"
+            }
+        },
+        {
+            "trendingSearchToken": "82d19678-1233-4340-83dd-b1c9b9f0b49d:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 3,
+                "searchTitle": "Duke"
+            }
+        },
+        {
+            "trendingSearchToken": "d5e0e379-f8ac-4dec-85f9-155cabe6ccc6:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 4,
+                "searchTitle": "Meagan Duhamel"
+            }
+        },
+        {
+            "trendingSearchToken": "dfe3f9df-aa23-4c9b-b6a8-6a76ceab8ce1:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 5,
+                "searchTitle": "Male birth control pills"
+            }
+        },
+        {
+            "trendingSearchToken": "e1ee6123-75a8-4507-ba8a-175d5b0b356f:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 6,
+                "searchTitle": "Duke basketball"
+            }
+        },
+        {
+            "trendingSearchToken": "0eff7631-7345-42f8-b4b0-982d648797d5:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 7,
+                "searchTitle": "Jason Kenney leadership review"
+            }
+        },
+        {
+            "trendingSearchToken": "0d26919e-a22a-444d-aad0-cd6ea64476c0:CA-20220325",
+            "trendingSearchTitle": {
+                "rankId": 8,
+                "searchTitle": "OTAN"
+            }
+        }
+    ],
+    "userRequestId": "requestId",
+    "friendlyFormattedDate": "Friday, 25 March 2022",
+    "tokenExpirationTime": "Saturday, 26 March 2022 00:24:48",
+    "tokenExpirationTimeInUtc": "Friday, 25 March 2022 13:24:48",
+    "errorMessage": "N/A"
+}

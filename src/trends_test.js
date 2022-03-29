@@ -36,16 +36,19 @@ async function getData() {
 
 async function getTrendsData() {
   let requestId = 'requestId';
-  let countryCode = 'US';
+  let countryCode = 'CA';
   let resultCount = '15'; // Max 20
-  let date = '20220321';
-  
+  let date = '20220325';
+  let baseUrl = 'https://google-trends.p.rapidapi.com/api/v1/'
+  let path = `DailyTrendingSearches/${requestId}/${countryCode}/${resultCount}/${date}`
+  let countryCodes = 'CountryCodeDetails'
+
   let options = {
     method: 'GET',
-    url: `https://google-trends.p.rapidapi.com/api/v1/DailyTrendingSearches/${requestId}/${countryCode}/${resultCount}/${date}`,
+    url: `${baseUrl}${path}`,
     headers: {
       'x-rapidapi-host': 'google-trends.p.rapidapi.com',
-      'x-rapidapi-key': '05003a938amsh173fba0f58e99fep18f1bfjsn70e550afa867'
+      'x-rapidapi-key': 'b8fff8da4bmsh768052460ff46fbp12e000jsn73a2c881a5e1'
     }
   };
   

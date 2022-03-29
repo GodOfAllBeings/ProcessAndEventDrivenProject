@@ -1,0 +1,37 @@
+{
+    "googleTrendingSearchList": [
+        {
+            "trendingSearchToken": "28921d06-7214-4c84-8290-b8188a9b2c8c:NO-20220325",
+            "trendingSearchTitle": {
+                "rankId": 1,
+                "searchTitle": "Vaffeldagen"
+            }
+        },
+        {
+            "trendingSearchToken": "614efa02-87ab-46df-83e6-65d94d191429:NO-20220325",
+            "trendingSearchTitle": {
+                "rankId": 2,
+                "searchTitle": "Liv Ullmann"
+            }
+        },
+        {
+            "trendingSearchToken": "957b041f-a5b9-4f01-b15c-aba803293774:NO-20220325",
+            "trendingSearchTitle": {
+                "rankId": 3,
+                "searchTitle": "Gareth Bale"
+            }
+        },
+        {
+            "trendingSearchToken": "39bcdb8f-a90f-4a19-bde4-7283efd006b4:NO-20220325",
+            "trendingSearchTitle": {
+                "rankId": 4,
+                "searchTitle": "Fastrente"
+            }
+        }
+    ],
+    "userRequestId": "requestId",
+    "friendlyFormattedDate": "Friday, 25 March 2022",
+    "tokenExpirationTime": "Saturday, 26 March 2022 00:21:21",
+    "tokenExpirationTimeInUtc": "Friday, 25 March 2022 13:21:21",
+    "errorMessage": "N/A"
+}
