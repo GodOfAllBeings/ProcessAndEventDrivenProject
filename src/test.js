@@ -54,14 +54,3 @@ const req = { files: ["./assets/videos/cat1.mp4", "./assets/videos/dog1.mp4"] };
 //     }
 //   );
 // }
-
-const getAllVideoNames = () => {
-    dir = path.join(__dirname, '../assets/videos');
-    var files = fs.readdirSync(dir);
-    return files;
-}
-
-const getAllVideoWithPartOfName = (substring) => {
-    const videos = getAllVideoNames();
-    return videos.filter(video => {return video.includes(substring)});
-}
