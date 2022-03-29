@@ -1,83 +1,85 @@
 const res = require("express/lib/response");
 const fs = require("fs");
 const path = require("path");
-
-const trendsTest5 = require('./trends_test_5_canada.json');
-
 const axios = require("axios").default;
 
 main();
 // Core Process Portfolio - Importance vs health
 
-async function main() {
+async function main(countryCode) {
+  let cc = countryCode ?? "ca";
 
-  //fetch("trends_test_5_canada.json").then(x => console.log(x));
+  // let catFact = await getData();
+  // console.log("res:");
+  // console.log(JSON.stringify(catFact));
 
-  let f = fs.read(path.join(__dirname, "./trends_test_5_canada.json"));
+  let validCC = validCountryCode(cc);
 
+  if(validCC != true){
+    // handle non-valid country code is passed
+  }
+   
+  let googleTrend = await getTrendsData(cc);
+  
+  // Parse trends data to form:
+  // {rankId: int, searchTitle: 'string'}[]
+  //      (15) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+  //      0:{rankId: 1, searchTitle: 'Taylor Hawkins'}
+  // let parsedTrends = googleTrend.googleTrendingSearchList.map(search => search.trendingSearchTitle);
 
-  let catFact = await getData();
-  console.log("res:");
-  console.log(JSON.stringify(catFact));
+  // console.log("Trends res:");
+  // console.log(JSON.stringify(googleTrend));
 
+  // console.log("Trends:");
+  // googleTrend.googleTrendingSearchList.map(trend => {
+  //   return `${trend.trendingSearchTitle.rankId} : ${trend.trendingSearchTitle.searchTitle}`
+  // })
 
-  let googleTrend = await getTrendsData();
-  let parsedTrends = googleTrend.googleTrendingSearchList.map(search => search.trendingSearchTitle);
-//   googleTrend.googleTrendingSearchList.map(search => search.trendingSearchTitle)
-//      (15) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-//    0:{rankId: 1, searchTitle: 'Taylor Hawkins'}
-//      1:{rankId: 2, searchTitle: 'Bridgerton'}
-//      2:{rankId: 3, searchTitle: 'Raptors'}
-//      3:{rankId: 4, searchTitle: 'Triple H'}
-//      4:{rankId: 5, searchTitle: 'Saudi Arabia Grand Prix'}
-//      5:{rankId: 6, searchTitle: 'Venus Williams'}
-//      6:{rankId: 7, searchTitle: 'CODA'}
-//      7:{rankId: 8, searchTitle: 'Bridgerton season 2 cast'}
-//      8:{rankId: 9, searchTitle: 'Oscar nominations 2022'}
-//      9:{rankId: 10, searchTitle: 'Doja Cat'}
-//      10:{rankId: 11, searchTitle: 'Raptors game'}
-//      11:{rankId: 12, searchTitle: 'Egypt vs Senegal'}
-//      12:{rankId: 13, searchTitle: 'King Richard'}
-//      13:{rankId: 14, searchTitle: 'Hayden Panettiere'}
-//      14:{rankId: 15, searchTitle: 'St. Peter's'}
-
-
-  //localStorage.setItem('api_response', JSON.stringify(result));
-  // console.log(localStorage.getItem('api_response'));
-  console.log("Trends res:");
-  console.log(JSON.stringify(googleTrend));
-
-  console.log("Trends:");
-  googleTrend.googleTrendingSearchList.map(trend => {
-    return `${trend.trendingSearchTitle.rankId} : ${trend.trendingSearchTitle.searchTitle}`
-  })
-
+  return googleTrend;
 }
 
-async function getData() {
-  let result;
-  await axios({
-    method: 'GET',
-    url: 'https://catfact.ninja/fact'
-  }).then(resp => result = resp.data);
-  return result;
+// async function getData() {
+//   let result;
+//   await axios({
+//     method: 'GET',
+//     url: 'https://catfact.ninja/fact'
+//   }).then(resp => result = resp.data);
+//   return result;
+// }
+
+
+function validCountryCode(code) {
+  let countries = fs.readFileSync(path.join(__dirname, "../country_codes.json"), 'utf8');
+  return JSON.parse(countries).countryList.map(country => country.countryCode.toLowerCase()).indexOf(code.toLowerCase()) > -1;
 }
 
-async function getTrendsData() {
+function yyyymmdd() {
+  var now = new Date();
+  var y = now.getFullYear();
+  var m = now.getMonth() + 1;
+  var d = now.getDate();
+  var mm = m < 10 ? '0' + m : m;
+  var dd = d < 10 ? '0' + d : d;
+  return '' + y + mm + dd;
+}
+
+
+async function getTrendsData(requestedCountry) {
+
   let requestId = 'requestId';
-  let countryCode = 'CA';
+  let countryCode = requestedCountry.toUpperCase();
   let resultCount = '15'; // Max 20
-  let date = '20220325';
+  let date = yyyymmdd();
   let baseUrl = 'https://google-trends.p.rapidapi.com/api/v1/'
-  let path = `DailyTrendingSearches/${requestId}/${countryCode}/${resultCount}/${date}`
-  let countryCodes = 'CountryCodeDetails'
+  let trendingsEndpoint = `DailyTrendingSearches/${requestId}/${countryCode}/${resultCount}/${date}`
+  let countryCodesEndpoint = 'CountryCodeDetails'
 
   let options = {
     method: 'GET',
-    url: `${baseUrl}${path}`,
+    url: `${baseUrl}${trendingsEndpoint}`,
     headers: {
       'x-rapidapi-host': 'google-trends.p.rapidapi.com',
-      'x-rapidapi-key': 'xxxxxxxxxxxxxx'
+      'x-rapidapi-key': '414e48f57cmsh577ffa0d7dd234bp1b230bjsn1cc2eeda3539'
     }
   };
   
