@@ -13,17 +13,18 @@ function saveTrend(trendRes, country) {
     let trendJson = JSON.parse(trendRes);
     console.log(trendJson);
     
-    // stringify JSON Object
-    let trendString = JSON.stringify(trendJson);
+    // stringify JSON Object. Argument 3 makes json pretty
+    let trendString = JSON.stringify(trendJson, null, 2);
     console.log(trendString);
-    
+
     // fs.writeFile(`${trendFilePath}/trend-${country}-${(new Date().toJSON().slice(0,10))}.json`, trendString, 'utf8', function (err) {
     fs.writeFile(`${trendFilePath}/${fileName}`, trendString, 'utf8', function (err) {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);
         }
-    
         console.log("JSON file has been saved.");
     });
 };
+
+// Delete files older than 7 days?? Use last 7 days function??
