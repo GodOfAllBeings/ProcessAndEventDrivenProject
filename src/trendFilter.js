@@ -32,38 +32,31 @@ function getLatestDates() {
     for (let i = 0; i < 7; i++) {
         dates.push(new Date(new Date().setDate(new Date().getDate()-i)).toJSON().slice(0,10));
     }
-    dates.forEach(date => {
-        console.log(date);
-    });
+    // dates.forEach(date => {
+    //     console.log(date);
+    // });
     return dates;
 }
 
 function getAllTrendNames() {
     const path = require("path");
     let dir = path.join(__dirname,`.${trendFilePath}`);
-    var fileNames = fs.readdirSync(dir);
-    // var fileContents = fs.readFile(dir);
-    return fileNames;
+    var files = fs.readdirSync(dir);
+    files.forEach(file => {
+        console.log(file)
+    })
+    // const files = fs.readFile(dir, {encoding:'utf8', flag:'r'});
+    return files;
 }
 
-getBestTrends(null);
-function getBestTrends(countryCodes) {
-    console.log(getAllTrendNames());
-    let dates = getLatestDates();
+getBestTrends();
+function getBestTrends() {
     const path = require("path");
     let dir = path.join(__dirname,`.${trendFilePath}`);
-    let fileNames = [];
-    let jsonTrends = [];
-    let country = "Canada";
-    // let test;
-    dates.forEach(date => {
-        let fileName = `trend-${country}-${date}.json`;
-        const test = require(`${trendFilePath}/${fileName}`);
-        console.log(test);
-        // jsonTrends.push(require(`${trendFilePath}/${fileName}`));
-        // fileNames.push(`trend-${country}-${date}.json`);
+    let trendFileNames = getAllTrendNames();
+    var jsonTrends = [];
+    trendFileNames.forEach(name => {
+        jsonTrends.push(fs.readFileSync(`${dir}/${name}`, 'utf8'));
     });
-
-    // console.log(jsonTrends.pop());
-
+    return jsonTrends;
 }
