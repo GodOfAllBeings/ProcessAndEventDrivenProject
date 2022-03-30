@@ -29,33 +29,50 @@ function saveTrend(trendRes, country) {
     });
 };
 
-function getLatestDates() {
+// removeOutdatedFiles();
+function removeOutdatedFiles() {
+    let oldDate = new Date(new Date().setDate(new Date().getDate()-6)).toJSON().slice(0,10);
+    console.log("Removing files before date: " + oldDate);
+    let dates = [];
+    let trendFileNames = fs.readdirSync(dir);
+    trendFileNames.forEach(fileName => {
+        let fileDate = fileName.slice(fileName.length - 15, fileName.length - 5);
+        if(isDateTooOld(fileDate, oldDate)) {
+            try {
+                fs.unlinkSync(`${trendFilePath}/${fileName}`);
+                console.log(`Removed file ${trendFilePath}/${fileName} because ${fileDate} is before ${oldDate}`);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+    })
+
+}
+
+function getWeekDates() {
     let dates = [];
     for (let i = 0; i < 7; i++) {
         dates.push(new Date(new Date().setDate(new Date().getDate()-i)).toJSON().slice(0,10));
     }
-    // dates.forEach(date => {
-    //     console.log(date);
-    // });
+    dates.forEach(date => {
+        console.log(date);
+    });
     return dates;
 }
 
-function getAllTrendNames() {
-    var files = fs.readdirSync(dir);
-    files.forEach(file => {
-        console.log(file)
-    })
-    // const files = fs.readFile(dir, {encoding:'utf8', flag:'r'});
-    return files;
+function isDateTooOld(fileDate, oldDate) {
+    fileDateFormat = new Date(fileDate.substring(0,4), fileDate.substring(5,7), fileDate.substring(8,10))
+    oldDateFormat = new Date(oldDate.substring(0,4), oldDate.substring(5,7), oldDate.substring(8,10))
+    return new Date(fileDateFormat.toDateString()) < new Date(oldDateFormat.toDateString());
 }
 
 getBestTrends();
 function getBestTrends() {
-    let trendFileNames = getAllTrendNames();
+    let trendFileNames = fs.readdirSync(dir);
     var jsonTrends = [];
     trendFileNames.forEach(name => {
         jsonTrends.push(fs.readFileSync(`${dir}/${name}`, 'utf8'));
     });
-    // console.log(jsonTrends.pop());
     return jsonTrends;
 }
