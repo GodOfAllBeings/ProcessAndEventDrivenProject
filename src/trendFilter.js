@@ -115,8 +115,9 @@ function createTrendArray() {
   return jsonTrends;
 }
 
-getBestTrends(createTrendArray());
-function getBestTrends(jsonTrends) {
+getBestTrends();
+function getBestTrends() {
+  let jsonTrends = createTrendArray();
   var allTrends = [];
   var trendMap = new Map();
 
