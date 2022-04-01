@@ -116,8 +116,8 @@ function createTrendArray() {
 }
 mergeVideos();
 function mergeVideos() {
-  const videoDir = path.join(__dirname, `.${videoFilePath}`);
   const videoFilePath = "./assets/videos/cat";
+  const videoDir = path.join(__dirname, `.${videoFilePath}`);
   const { exec } = require("child_process");
   var outputFilePath = Date.now() + "output.mp4";
   let videoFileNames = fs.readdirSync(videoDir);
@@ -162,7 +162,7 @@ function getBestTrends() {
   const trendMapSort = new Map(
     [...trendMap.entries()].sort((a, b) => b[1] - a[1])
   );
-//   console.log(trendMapSort);
+  //   console.log(trendMapSort);
   return trendMapSort;
 }
 module.exports = { saveTrend, getBestTrends };
