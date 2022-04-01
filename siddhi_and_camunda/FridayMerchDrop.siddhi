@@ -1,0 +1,28 @@
+@App:name("FridayMerchDrop")
+@App:description("Generate events based on any cron job defined")
+
+/*
+Purpose:
+    This application triggers to generate events at 12.27 PM on every weekdays.
+
+Executing the Sample:
+    1) Start the Siddhi application by clicking on 'Run'
+    2) If the Siddhi application starts successfully, the following messages would be shown on the console
+        * CronBasedTrigger.siddhi - Started Successfully!.
+
+Viewing the Results:
+    See the input and respective output on the console (you can change the cron job in line number 21) similar to the following.
+        INFO {io.siddhi.core.stream.output.sink.LogSink} - CronBasedTrigger : LogStream : Event{timestamp=1569913020014, data=[new event triggered, 1569913020014], isExpired=false}
+*/
+
+@sink(type="http", publisher.url="http://localhost:8080", basic.auth.username="<STRING>", basic.auth.password="<STRING>", https.truststore.file="<STRING>", https.truststore.password="<STRING>", oauth.username="<STRING>", oauth.password="<STRING>", consumer.key="<STRING>", consumer.secret="<STRING>", body.consumer.key="<STRING>", body.consumer.secret="<STRING>", token.url="<STRING>", refresh.token="<STRING>", oauth.scope="<STRING>", headers="<STRING>", method="<STRING>", socket.idle.timeout="<INT>", chunk.disabled="<BOOL>", ssl.protocol="<STRING>", ssl.verification.disabled="<BOOL>", tls.store.type="<STRING>", ssl.configurations="<STRING>", proxy.host="<STRING>", proxy.port="<STRING>", proxy.username="<STRING>", proxy.password="<STRING>", client.bootstrap.configurations="<STRING>", max.pool.active.connections="<INT>", min.pool.idle.connections="<INT>", max.pool.idle.connections="<INT>", executor.service.threads="<INT>", min.evictable.idle.time="<STRING>", time.between.eviction.runs="<STRING>", max.wait.time="<STRING>", test.on.borrow="<BOOL>", test.while.idle="<BOOL>", exhausted.action="<INT>", hostname.verification.enabled="<BOOL>", @map(...)))
+define stream LogStream (event string, eventTimestamp long);
+
+define trigger TimeTriggerStream at '0 16 * * 5';
+
+from TimeTriggerStream
+select 'new event triggered' as event, eventTimestamp() as eventTimestamp
+insert into LogStream;
+
+
+
