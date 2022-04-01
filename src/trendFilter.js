@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const trendFilePath = "./assets/trends";
-const dir = path.join(__dirname, `.${trendFilePath}`);
+const trendDir = path.join(__dirname, `.${trendFilePath}`);
 
 // json data
 var jsonData =
@@ -42,7 +42,7 @@ function removeOutdatedFiles() {
     .slice(0, 10);
   console.log("Removing files before date: " + oldDate);
   let dates = [];
-  let trendFileNames = fs.readdirSync(dir);
+  let trendFileNames = fs.readdirSync(trendDir);
   trendFileNames.forEach((fileName) => {
     let fileDate = fileName.slice(fileName.length - 15, fileName.length - 5);
     if (isDateTooOld(fileDate, oldDate)) {
@@ -102,10 +102,10 @@ function isDateTooOld(fileDate, oldDate) {
 
 // createTrendArray();
 function createTrendArray() {
-  let trendFileNames = fs.readdirSync(dir);
+  let trendFileNames = fs.readdirSync(trendDir);
   var jsonTrends = [];
   trendFileNames.forEach((name) => {
-    let jsonTrend = JSON.parse(fs.readFileSync(`${dir}/${name}`, "utf8"))[
+    let jsonTrend = JSON.parse(fs.readFileSync(`${trendDir}/${name}`, "utf8"))[
       "googleTrendingSearchList"
     ];
     jsonTrends = jsonTrends.concat(jsonTrend);
@@ -114,8 +114,37 @@ function createTrendArray() {
   //   console.log(jsonTrends);
   return jsonTrends;
 }
+mergeVideos();
+function mergeVideos() {
+  const videoDir = path.join(__dirname, `.${videoFilePath}`);
+  const videoFilePath = "./assets/videos/cat";
+  const { exec } = require("child_process");
+  var outputFilePath = Date.now() + "output.mp4";
+  let videoFileNames = fs.readdirSync(videoDir);
+  let ffm = "ffmpeg";
+  let filters = ' -filter_complex "';
+  let filterEnd = "";
+  for (let i = 0; i < videoFileNames.length; i++) {
+    ffm += ` -i assets/videos/${videoFileNames[i]}`;
+    filters += `[${i}]crop=720:720:280:0, scale=640:640, fps=30[${i}v];`;
+    filterEnd += `[${i}v]`;
+  }
+  filterEnd += `concat=n=${videoFileNames.length}:v=1:a=0[v]" -map "[v]" ${outputFilePath}`;
 
-getBestTrends();
+  ffm += filters;
+  ffm += filterEnd;
+  console.log(ffm);
+  exec(ffm, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    } else {
+      console.log("videos are successfully merged");
+    }
+  });
+}
+
+// getBestTrends();
 function getBestTrends() {
   let jsonTrends = createTrendArray();
   var allTrends = [];
