@@ -135,3 +135,4 @@ function getBestTrends(jsonTrends) {
   console.log(trendMapSort);
   return trendMapSort;
 }
+module.exports = { saveTrend };
