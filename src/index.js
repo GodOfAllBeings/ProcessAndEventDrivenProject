@@ -136,8 +136,7 @@ const getAllVideoNames = () => {
 //Get all videos containing a substring, e.g. all videos with "cat" in the name
 const getAllVideoWithPartOfName = (substring) => {
   const videos = getAllVideoNames();
-  const val = videos.filter(video => video.toLowerCase().includes(substring.toLowerCase()));
-  return val;
+  return videos.filter(video => video.toLowerCase().includes(substring.toLowerCase()));
 }
 
 const minimalVideos = 3;
