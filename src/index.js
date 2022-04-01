@@ -171,8 +171,7 @@ var scheduler = schedule.scheduleJob('0 51 14 * * *', function(){
 let bestTrends = TrendFilter.getBestTrends();
 bestTrends.forEach(function(value,key) {
   if(doesVideosForTrendExists(key)){
-    // concatVideo(key);
-    console.log(key);
+    concatVideo(key);
   }
 });
 
