@@ -48,42 +48,6 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-
-
-app.post("/merch-friday", (req, res) => {
-    const { Client, logger } = require("camunda-external-task-client-js");
-
-    const params = {
-      "variables": {
-        "aVariable": {
-          "value": "aStringValue",
-          "type": "String"
-        },
-        "anotherVariable": {
-          "value": true,
-          "type": "Boolean"
-        }
-      },
-      "businessKey": "friday-merch"
-    };
-    fetch("http://localhost:8080/engine-rest/process-definition/key/friday-merch/start", params).then(res => console.log(res)).catch(error => console.log(error));
-    // configuration for the Client:
-    //  - 'baseUrl': url to the Process Engine
-    //  - 'logger': utility to automatically log important events
-    const config = { baseUrl: "http://localhost:8080/engine-rest", use: logger };
-
-    // create a Client instance with custom configuration
-    const client = new Client(config);
-
-    client.start();
-    // susbscribe to the topic: 'creditScoreChecker'
-    client.subscribe("friday_merch_begin", async function({ task, taskService }) {
-    // Put your business logic
-    // complete the task
-    await taskService.complete(task);
-  });
-});
-
 app.post("/merge", upload.array("files", 1000), (req, res) => {
   let ffm = "ffmpeg";
   let filters = ' -filter_complex "';
