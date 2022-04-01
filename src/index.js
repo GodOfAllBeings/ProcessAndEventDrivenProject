@@ -30,6 +30,11 @@ var storage = multer.diskStorage({
 function updateOutputFilePath(trend) {
   outputFilePath = Date.now() + (trend ? "_" + trend : "") + "_output.mp4";
 }
+
+function compilationPath(fileName) {
+  return path.join(__dirname, "../assets/compilations", fileName);
+}
+
 const videoFilter = function (req, file, cb) {
   // Accept videos only
   if (!file.originalname.match(/\.(mp4)$/)) {
@@ -166,13 +171,56 @@ const getAllVideoNames = () => {
 //Get all videos containing a substring, e.g. all videos with "cat" in the name
 const getAllVideoWithPartOfName = (substring) => {
   const videos = getAllVideoNames();
-  return videos.filter((video) => {
-    return video.includes(substring);
-  });
+  return videos.filter((video) =>
+    video.toLowerCase().includes(substring.toLowerCase())
+  );
+};
+
+const minimalVideos = 3;
+const doesVideosForTrendExists = (trend) => {
+  return getAllVideoWithPartOfName(trend).length > minimalVideos;
 };
 
 // The scheduler is set to 20:00 localtime.
 const schedule = require("node-schedule");
+const Trends = require("./trends_test.js");
+const TrendFilter = require("./trendFilter.js");
+const { exit } = require("process");
+
+// concatVideo("cat");
+// exit();
+
+// Scheduler is * * * * * * --> Second(0-60) Minute(0-60) Hour(0-23) dayOfMonth(1-31) Month(1-12) dayOfWeek(1-7)
+var scheduler = schedule.scheduleJob("0 51 14 * * *", function () {
+  const countries = ["CA"]; //, "DE", "NO", "US", "SE"]; // "GB", "FR", "AU", "BE", "CH"
+  console.log(new Date());
+
+  // countries.forEach((country, index) => {
+  //   if(country !== null && country !== undefined){
+  //     Trends.main(country).then(value => {
+  //       TrendFilter.saveTrend(value, country);
+  //     });
+  //   }
+  // });
+});
+
+// concatVideo("cat");
+let bestTrends = TrendFilter.getBestTrends();
+bestTrends.forEach(function (value, key) {
+  if (doesVideosForTrendExists(key)) {
+    concatVideo(key);
+  }
+});
+
+// We know there are at least a couple (minimalVideos) amount of videos.
+// Lets find them and create a compilation
+function concatVideo(trend) {
+  let videosMatchingTrend = getAllVideoWithPartOfName(trend);
+  let outputFilePath = merge(videosMatchingTrend, trend);
+}
+
+// The scheduler is set to 20:00 localtime.
+// const schedule = require("node-schedule");
 // Scheduler is * * * * * * --> Second(0-60) Minute(0-60) Hour(0-23) dayOfMonth(1-31) Month(1-12) dayOfWeek(1-7)
 var scheduler = schedule.scheduleJob("0 0 20 * * *", function () {
   const countries = ["CA", "DE", "NO", "US", "SE"]; // "GB", "FR", "AU", "BE", "CH"
