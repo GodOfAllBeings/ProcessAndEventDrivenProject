@@ -115,7 +115,7 @@ function createTrendArray() {
   return jsonTrends;
 }
 
-getBestTrends();
+// getBestTrends();
 function getBestTrends() {
   let jsonTrends = createTrendArray();
   var allTrends = [];
@@ -133,7 +133,7 @@ function getBestTrends() {
   const trendMapSort = new Map(
     [...trendMap.entries()].sort((a, b) => b[1] - a[1])
   );
-  console.log(trendMapSort);
+//   console.log(trendMapSort);
   return trendMapSort;
 }
-module.exports = { saveTrend };
+module.exports = { saveTrend, getBestTrends };
