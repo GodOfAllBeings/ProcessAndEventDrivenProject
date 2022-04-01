@@ -2,7 +2,8 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
-var outputFilePath = Date.now() + "_output.mp4()";
+// var outputFilePath = "assets/compilations/" + Date.now() + "_output.mp4()";
+var outputFilePath = Date.now() + "output.mp4";
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const app = express();
@@ -49,7 +50,7 @@ var subDirectory = "public/uploads";
 // });
 
 function updateOutputFilePath(trend) {
-  outputFilePath = Date.now() + (trend? "_" + trend : "" ) + "_output.mp4";
+  outputFilePath = Date.now() + (trend ? "_" + trend : "") + "_output.mp4";
 }
 
 function assetPath(fileName) {
@@ -61,103 +62,96 @@ function compilationPath(fileName) {
 }
 
 function merge(files, trend = "") {
-  // figure out if the files passed are strings
-  //let types = files.map(file => typeof file);
-  // If they are - read the files
-  let paths = files.map(file => assetPath(file));
-
-  if(trend) {updateOutputFilePath(trend);}
-
   let ffm = "ffmpeg";
   let filters = ' -filter_complex "';
   let filterEnd = "";
-  if (paths) {
-    for (let i = 0; i < paths.length; i++) {
-      ffm += ` -i ${paths[i]}`;
-      filters += `[${i}]crop=720:720:280:0, scale=640:640, fps=30[${i}v];`;
-      filterEnd += `[${i}v]`;
-    }
-    filterEnd += `concat=n=${paths.length}:v=1:a=0[v]" -map "[v]" ${compilationPath(outputFilePath)}`;
-
-    ffm += filters;
-    ffm += filterEnd;
-    console.log(ffm);
-    exec(
-      // Crops, scales and sets fixed FPS. The String ffm should create something like this example:
-      // `ffmpeg -i assets/ad1.mp4 -i assets/cat1.mp4 -i assets/dog1.mp4 -filter_complex \
-      // "[0]crop=720:720:280:0, scale=640:640, fps=30[0v]; \
-      // [1]crop=720:720:280:0, scale=640:640, fps=30[1v]; \
-      // [2]crop=720:720:280:0, scale=640:640, fps=30[2v]; \
-      // [0v][1v][2v]concat=n=3:v=1:a=0[v]" \
-      // -map "[v]" ${outputFilePath}`,
-      ffm,
-
-      (error, stdout, stderr) => {
-        if (error) {
-          console.log(`error: ${error.message}`);
-          return;
-        } else {
-          console.log("videos are successfully merged");
-          res.download(outputFilePath, (err) => {
-            if (err) throw err;
-          });
-        }
-      }
-    );
+  for (let i = 0; i < files.length; i++) {
+    console.log("Video name: " + files[i]);
+    ffm += ` -i assets/videos/${files[i]}`;
+    filters += `[${i}]crop=720:720:280:0, scale=640:640, fps=30[${i}v];`;
+    filterEnd += `[${i}v]`;
   }
-  return compilationPath(outputFilePath);
+  filterEnd += `concat=n=${
+    files.length
+  }:v=1:a=0[v]" -map "[v]" ${compilationPath(outputFilePath)}`;
 
+  ffm += filters;
+  ffm += filterEnd;
+  console.log(ffm);
+  exec(ffm, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    } else {
+      console.log("videos are successfully merged");
+    }
+  });
 }
 
-// app.post("/merge", upload.array("files", 1000), (req, res) => {
-//   let outputFilePath = merge(req.files);
+// function mergeErr(files, trend = "") {
+//   let ffm = "ffmpeg";
+//   let filters = ' -filter_complex "';
+//   let filterEnd = "";
+//   for (let i = 0; i < files.length; i++) {
+//     ffm += ` -i /assets/videos/${files[i]}`;
+//     filters += `[${i}]crop=720:720:280:0, scale=640:640, fps=30[${i}v];`;
+//     filterEnd += `[${i}v]`;
+//   }
+//   filterEnd += `concat=n=${
+//     files.length
+//   }:v=1:a=0[v]" -map "[v]" ${compilationPath(outputFilePath)}`;
 
-//   res.download(outputFilePath, (err) => {
-//     if (err) throw err;
-//     req.files.forEach((file) => {
-//       fs.unlinkSync(file.path);
-//     });
-//     // fs.unlinkSync(outputFilePath);
+//   ffm += filters;
+//   ffm += filterEnd;
+//   console.log(ffm);
+//   exec(ffm, (error, stdout, stderr) => {
+//     if (error) {
+//       console.log(`error: ${error.message}`);
+//       return;
+//     } else {
+//       console.log("videos are successfully merged");
+//       res.download(outputFilePath, (err) => {
+//         if (err) throw err;
+//       });
+//     }
 //   });
-// });
-
-// http://127.0.0.1:3000/
-// app.listen(PORT, () => {
-//   console.log(`App is listening on http://localhost:${PORT}`);
-// });
+//   return compilationPath(outputFilePath);
+// }
 
 //GET ALL VIDEOS
 const getAllVideoNames = () => {
-  dir = path.join(__dirname, '../assets/videos');
+  dir = path.join(__dirname, "../assets/videos");
   var files = fs.readdirSync(dir);
   return files;
-}
+};
 
 //Get all videos containing a substring, e.g. all videos with "cat" in the name
 const getAllVideoWithPartOfName = (substring) => {
   const videos = getAllVideoNames();
-  return videos.filter(video => video.toLowerCase().includes(substring.toLowerCase()));
-}
+  return videos.filter((video) =>
+    video.toLowerCase().includes(substring.toLowerCase())
+  );
+};
 
 const minimalVideos = 3;
 const doesVideosForTrendExists = (trend) => {
   return getAllVideoWithPartOfName(trend).length > minimalVideos;
-} 
+};
 
 // The scheduler is set to 20:00 localtime.
-const schedule = require('node-schedule');
-const Trends = require('./trends_test.js');
-const TrendFilter = require('./trendFilter.js');
+const schedule = require("node-schedule");
+const Trends = require("./trends_test.js");
+const TrendFilter = require("./trendFilter.js");
 const { exit } = require("process");
 
 // concatVideo("cat");
 // exit();
 
 // Scheduler is * * * * * * --> Second(0-60) Minute(0-60) Hour(0-23) dayOfMonth(1-31) Month(1-12) dayOfWeek(1-7)
-var scheduler = schedule.scheduleJob('0 51 14 * * *', function(){
-  const countries = ["CA"];//, "DE", "NO", "US", "SE"]; // "GB", "FR", "AU", "BE", "CH"
+var scheduler = schedule.scheduleJob("0 51 14 * * *", function () {
+  const countries = ["CA"]; //, "DE", "NO", "US", "SE"]; // "GB", "FR", "AU", "BE", "CH"
   console.log(new Date());
-  
+
   // countries.forEach((country, index) => {
   //   if(country !== null && country !== undefined){
   //     Trends.main(country).then(value => {
@@ -165,16 +159,15 @@ var scheduler = schedule.scheduleJob('0 51 14 * * *', function(){
   //     });
   //   }
   // });
-  
 });
 
+// concatVideo("cat");
 let bestTrends = TrendFilter.getBestTrends();
-bestTrends.forEach(function(value,key) {
-  if(doesVideosForTrendExists(key)){
+bestTrends.forEach(function (value, key) {
+  if (doesVideosForTrendExists(key)) {
     concatVideo(key);
   }
 });
-
 
 // We know there are at least a couple (minimalVideos) amount of videos.
 // Lets find them and create a compilation

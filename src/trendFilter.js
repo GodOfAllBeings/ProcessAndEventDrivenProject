@@ -114,13 +114,17 @@ function createTrendArray() {
   //   console.log(jsonTrends);
   return jsonTrends;
 }
-mergeVideos();
+// mergeVideos();
 function mergeVideos() {
-  const videoFilePath = "./assets/videos/cat";
+  const videoFilePath = "./assets/videos";
   const videoDir = path.join(__dirname, `.${videoFilePath}`);
   const { exec } = require("child_process");
   var outputFilePath = Date.now() + "output.mp4";
   let videoFileNames = fs.readdirSync(videoDir);
+  videoFileNames.forEach((name) => {
+    console.log(name);
+  });
+
   let ffm = "ffmpeg";
   let filters = ' -filter_complex "';
   let filterEnd = "";
