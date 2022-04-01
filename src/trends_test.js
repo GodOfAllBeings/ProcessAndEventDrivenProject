@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios").default;
 
-main();
+// main();
 
 async function main(countryCode) {
   let cc = countryCode ?? "ca";
@@ -72,3 +72,5 @@ async function getTrendsData(requestedCountry) {
 
   return result;
 }
+
+module.exports = {main}

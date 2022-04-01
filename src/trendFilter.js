@@ -12,11 +12,11 @@ function saveTrend(trendRes, country) {
     let fileName = `trend-${country}-${(new Date().toJSON().slice(0,10))}.json`
 
     // parse json
-    let trendJson = JSON.parse(trendRes);
-    console.log(trendJson);
+    // let trendJson = JSON.parse(trendRes);
+    // console.log(trendJson);
     
     // stringify JSON Object. Argument 3 makes json pretty
-    let trendString = JSON.stringify(trendJson, null, 2);
+    let trendString = JSON.stringify(trendRes, null, 2);
     console.log(trendString);
 
     // fs.writeFile(`${trendFilePath}/trend-${country}-${(new Date().toJSON().slice(0,10))}.json`, trendString, 'utf8', function (err) {
@@ -76,3 +76,5 @@ function getBestTrends() {
     });
     return jsonTrends;
 }
+
+module.exports={saveTrend};
