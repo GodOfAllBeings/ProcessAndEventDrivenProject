@@ -110,13 +110,18 @@ const getAllVideoWithPartOfName = (substring) => {
   return videos.filter(video => {return video.includes(substring)});
 }
 
+const minimalVideos = 3;
+const doesVideosForTrendExists = (trend) => {
+  return getAllVideoWithPartOfName.length > minimalVideos;
+} 
+
 // The scheduler is set to 20:00 localtime.
 const schedule = require('node-schedule');
 const Trends = require('./trends_test.js');
 const TrendFilter = require('./trendFilter.js');
 
 // Scheduler is * * * * * * --> Second(0-60) Minute(0-60) Hour(0-23) dayOfMonth(1-31) Month(1-12) dayOfWeek(1-7)
-var scheduler = schedule.scheduleJob('0 45 13 * * *', function(){
+var scheduler = schedule.scheduleJob('0 0 20 * * *', function(){
   const countries = ["CA"];//, "DE", "NO", "US", "SE"]; // "GB", "FR", "AU", "BE", "CH"
   console.log(new Date());
   
@@ -128,4 +133,5 @@ var scheduler = schedule.scheduleJob('0 45 13 * * *', function(){
     }
   });
   // trend = findBestTrend();
+  // doesVideosForTrendExists(trend) ? concatVideo(trend) : null
 });
