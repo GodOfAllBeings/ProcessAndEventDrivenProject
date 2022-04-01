@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_06pv11p" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_0244ty6" isExecutable="true">
+    <bpmn:subProcess id="Activity_07lsweg">
+      <bpmn:startEvent id="Event_0b5w0v7" name="Produce trending merch process requested">
+        <bpmn:outgoing>Flow_1c1gzo2</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:task id="Activity_1t1srsb" name="Find this weeks most searched topic">
+        <bpmn:incoming>Flow_1c1gzo2</bpmn:incoming>
+        <bpmn:outgoing>Flow_0rbp4c5</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:task id="Activity_064rwcg" name="Find royalty free stock image related to topic">
+        <bpmn:incoming>Flow_0rbp4c5</bpmn:incoming>
+        <bpmn:outgoing>Flow_1p28d3h</bpmn:outgoing>
+        <bpmn:dataOutputAssociation id="DataOutputAssociation_1nevx74">
+          <bpmn:targetRef>DataObjectReference_1rnwv60</bpmn:targetRef>
+        </bpmn:dataOutputAssociation>
+      </bpmn:task>
+      <bpmn:dataObjectReference id="DataObjectReference_1rnwv60" name="Design without branding" dataObjectRef="DataObject_0o4sy01" />
+      <bpmn:dataObject id="DataObject_0o4sy01" />
+      <bpmn:sequenceFlow id="Flow_0rbp4c5" sourceRef="Activity_1t1srsb" targetRef="Activity_064rwcg" />
+      <bpmn:sequenceFlow id="Flow_1c1gzo2" sourceRef="Event_0b5w0v7" targetRef="Activity_1t1srsb" />
+      <bpmn:task id="Activity_0r6rcec" name="Add branding">
+        <bpmn:incoming>Flow_1p28d3h</bpmn:incoming>
+        <bpmn:outgoing>Flow_1eoe9xq</bpmn:outgoing>
+        <bpmn:dataOutputAssociation id="DataOutputAssociation_1btdigi">
+          <bpmn:targetRef>DataObjectReference_1ki3rce</bpmn:targetRef>
+        </bpmn:dataOutputAssociation>
+      </bpmn:task>
+      <bpmn:sequenceFlow id="Flow_1p28d3h" sourceRef="Activity_064rwcg" targetRef="Activity_0r6rcec" />
+      <bpmn:dataObjectReference id="DataObjectReference_1ki3rce" name="Design with branding" dataObjectRef="DataObject_02nkyi2" />
+      <bpmn:dataObject id="DataObject_02nkyi2" />
+      <bpmn:endEvent id="Event_06lcuzz" name="Merch with branding produced">
+        <bpmn:incoming>Flow_1eoe9xq</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_1eoe9xq" sourceRef="Activity_0r6rcec" targetRef="Event_06lcuzz" />
+    </bpmn:subProcess>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0244ty6">
+      <bpmndi:BPMNShape id="Activity_07lsweg_di" bpmnElement="Activity_07lsweg" isExpanded="true">
+        <dc:Bounds x="160" y="80" width="700" height="310" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0rbp4c5_di" bpmnElement="Flow_0rbp4c5">
+        <di:waypoint x="380" y="310" />
+        <di:waypoint x="450" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1c1gzo2_di" bpmnElement="Flow_1c1gzo2">
+        <di:waypoint x="236" y="310" />
+        <di:waypoint x="280" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1p28d3h_di" bpmnElement="Flow_1p28d3h">
+        <di:waypoint x="550" y="310" />
+        <di:waypoint x="620" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eoe9xq_di" bpmnElement="Flow_1eoe9xq">
+        <di:waypoint x="720" y="310" />
+        <di:waypoint x="792" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0b5w0v7_di" bpmnElement="Event_0b5w0v7">
+        <dc:Bounds x="200" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="335" width="84" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1t1srsb_di" bpmnElement="Activity_1t1srsb">
+        <dc:Bounds x="280" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_064rwcg_di" bpmnElement="Activity_064rwcg">
+        <dc:Bounds x="450" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1rnwv60_di" bpmnElement="DataObjectReference_1rnwv60">
+        <dc:Bounds x="482" y="175" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="463" y="145" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0r6rcec_di" bpmnElement="Activity_0r6rcec">
+        <dc:Bounds x="620" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1ki3rce_di" bpmnElement="DataObjectReference_1ki3rce">
+        <dc:Bounds x="652" y="175" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="642" y="145" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_06lcuzz_di" bpmnElement="Event_06lcuzz">
+        <dc:Bounds x="792" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="783" y="335" width="54" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1nevx74_di" bpmnElement="DataOutputAssociation_1nevx74">
+        <di:waypoint x="501" y="270" />
+        <di:waypoint x="502" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1btdigi_di" bpmnElement="DataOutputAssociation_1btdigi">
+        <di:waypoint x="671" y="270" />
+        <di:waypoint x="671" y="225" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
