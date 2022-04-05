@@ -1,0 +1,18 @@
+@App:name("MonitorViewsApplication")
+
+@App:description("Description of the plan")
+
+@source(type='http', receiver.url='http://localhost:8081/ViewOnVideo', @map(type='json'))
+define stream ViewOnVideo (value string);
+
+@sink(type='log')
+define stream LogStream (numberOfEvents long);
+
+@sink(type='http-request' , publisher.url='option_value',sink.id='option_value') 
+define stream VideoHasGoneViral(videoId string);
+
+from LogStream [numberOfEvents > 20] 
+select count as videoId
+insert into VideoHasGoneViral;
+
+from ViewOnVideo#window.time(10 sec) select count as numberOfEvents insert into LogStream;
