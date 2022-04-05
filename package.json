@@ -10,9 +10,12 @@
   "dependencies": {
     "@ffmpeg/core": "^0.10.0",
     "@ffmpeg/ffmpeg": "^0.10.1",
+    "axios": "^0.26.1",
+    "camunda-external-task-client-js": "^2.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "multer": "^1.4.4",
+    "node-schedule": "^2.1.0",
     "nodemon": "^2.0.15",
     "p-queue": "^7.2.0"
   },

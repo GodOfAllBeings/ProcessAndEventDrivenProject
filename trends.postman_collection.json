@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "51a6c5e6-f4a1-477c-8e79-2dc8f6758e83",
+		"name": "trends",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "friday merch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/merch-friday",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"merch-friday"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "friday merch 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"variables\": {\r\n    \"aVariable\": {\r\n      \"value\": \"aStringValue\",\r\n      \"type\": \"String\"\r\n    },\r\n    \"anotherVariable\": {\r\n      \"value\": true,\r\n      \"type\": \"Boolean\"\r\n    }\r\n  },\r\n  \"businessKey\": \"friday-merch\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/process-definition/key/friday-merch/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"process-definition",
+						"key",
+						"friday-merch",
+						"start"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

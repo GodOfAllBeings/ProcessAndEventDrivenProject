@@ -1,0 +1,37 @@
+{
+  "googleTrendingSearchList": [
+    {
+      "trendingSearchToken": "baf14cf9-e2c7-45a4-adee-8ecb5ececc0f:CA-20220401",
+      "trendingSearchTitle": {
+        "rankId": 1,
+        "searchTitle": "Jared Leto"
+      }
+    },
+    {
+      "trendingSearchToken": "8ed4e317-84d9-492f-8839-b06649b3108f:CA-20220401",
+      "trendingSearchTitle": {
+        "rankId": 2,
+        "searchTitle": "Giannis Antetokounmpo"
+      }
+    },
+    {
+      "trendingSearchToken": "fa349284-b51d-4162-a1d6-9c4781cd49f2:CA-20220401",
+      "trendingSearchTitle": {
+        "rankId": 3,
+        "searchTitle": "Leslie Mann"
+      }
+    },
+    {
+      "trendingSearchToken": "aba2f543-b741-4c79-adca-54c29a63e669:CA-20220401",
+      "trendingSearchTitle": {
+        "rankId": 4,
+        "searchTitle": "Flames"
+      }
+    }
+  ],
+  "userRequestId": "requestId",
+  "friendlyFormattedDate": "Friday, 1 April 2022",
+  "tokenExpirationTime": "Friday, 01 April 2022 23:02:05",
+  "tokenExpirationTimeInUtc": "Friday, 01 April 2022 12:02:05",
+  "errorMessage": "N/A"
+}
