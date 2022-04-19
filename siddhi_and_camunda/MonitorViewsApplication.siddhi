@@ -2,17 +2,28 @@
 
 @App:description("Description of the plan")
 
-@source(type='http', receiver.url='http://localhost:8081/ViewOnVideo', @map(type='json'))
+@source(type='http', 
+    receiver.url='http://localhost:8081/ViewOnVideo', 
+    @map(type='json'))
 define stream ViewOnVideo (value string);
 
 @sink(type='log')
-define stream LogStream (numberOfEvents long);
+define stream LogStream (numberOfEvents long, value string);
 
-@sink(type='http-request' , publisher.url='option_value',sink.id='option_value') 
-define stream VideoHasGoneViral(videoId string);
+@sink(type='http', 
+    publisher.url='http://localhost:3000/',
+    headers = "'Host:localhost:3000",
+    @map(type='json', 
+        @payload("""{"videoId":"{{videoId}}","videoCount":"{{videoCount}}"}""") ))
+define stream VideoHasGoneViral(videoCount long, videoId string);
 
-from LogStream [numberOfEvents > 20] 
-select count as videoId
+--from LogStream[numberOfEvents >= 20]#window.frequent(1) -- returns (1) most frequent
+@info(name = 'select_viral_video')
+from LogStream#window.frequent(1, value)
+select numberOfEvents as videoCount, value as videoId
+having videoCount > 20
 insert into VideoHasGoneViral;
 
-from ViewOnVideo#window.time(10 sec) select count as numberOfEvents insert into LogStream;
+from ViewOnVideo#window.time(10 sec)
+select count(value) as numberOfEvents, value
+insert into LogStream;
