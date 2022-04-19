@@ -156,10 +156,11 @@ function merge(files, trend = "") {
 //   }
 // });
 
-// http://127.0.0.1:3000/
-// app.listen(PORT, () => {
-//   console.log(`App is listening on http://localhost:${PORT}`);
-// });
+//http://127.0.0.1:3000/
+PORT = 3000
+app.listen(PORT, () => {
+  console.log(`App is listening on http://localhost:${PORT}`);
+});
 
 //GET ALL VIDEOS
 const getAllVideoNames = () => {
