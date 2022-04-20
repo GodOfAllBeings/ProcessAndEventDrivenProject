@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Write request for help",
+      "type": "textfield",
+      "id": "Field_0smtyit",
+      "key": "helpNote",
+      "description": "Say something convincing to get help escaping",
+      "validate": {
+        "required": true,
+        "regularExpressionPattern": "^.*please.*$"
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_1tq0tf1"
+}
