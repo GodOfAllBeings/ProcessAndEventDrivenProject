@@ -1,11 +1,11 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3080
 
 app.use(express.json());
 
 app.post('/', (req, res) => {
-    console.log(req.body)
+    console.log(JSON.stringify(req.body))
     res.send('Hello World!')
 })
 
