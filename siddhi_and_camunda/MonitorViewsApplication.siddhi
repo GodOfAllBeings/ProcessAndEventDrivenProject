@@ -10,18 +10,29 @@ define stream ViewOnVideo (value string);
 @sink(type='log')
 define stream LogStream (numberOfEvents long, value string);
 
-@sink(type='http', 
-    publisher.url='http://localhost:3000/',
-    headers = "'Host:localhost:3000",
-    @map(type='json', 
-        @payload("""{"videoId":"{{videoId}}","videoCount":"{{videoCount}}"}""") ))
+@sink(type='http',
+    method='POST',
+    publisher.url='http://localhost:8080/engine-rest/message',
+    headers = "'Host:localhost:8080",
+    @map(type='json',
+        @payload("""
+            {
+		        "messageName" : "VideoGoneViral",
+		        "businessKey" : "siddhi",
+		        "processVariables" : {
+		            "videoId": { "value":"{{videoId}}", "type":"string"}
+		        }
+            }
+        """)
+    )
+)
 define stream VideoHasGoneViral(videoCount long, videoId string);
 
 --from LogStream[numberOfEvents >= 20]#window.frequent(1) -- returns (1) most frequent
 @info(name = 'select_viral_video')
 from LogStream#window.frequent(1, value)
 select numberOfEvents as videoCount, value as videoId
-having videoCount > 20
+having videoCount > 19
 insert into VideoHasGoneViral;
 
 from ViewOnVideo#window.time(10 sec)
