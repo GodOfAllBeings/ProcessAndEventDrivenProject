@@ -6,32 +6,13 @@
 	},
 	"item": [
 		{
-			"name": "friday merch",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/merch-friday",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"merch-friday"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "friday merch 2",
+			"name": "Send Popular Topic to CreateMerch",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"variables\": {\r\n    \"aVariable\": {\r\n      \"value\": \"aStringValue\",\r\n      \"type\": \"String\"\r\n    },\r\n    \"anotherVariable\": {\r\n      \"value\": true,\r\n      \"type\": \"Boolean\"\r\n    }\r\n  },\r\n  \"businessKey\": \"friday-merch\"\r\n}",
+					"raw": "{\r\n  \"messageName\" : \"PopularTopic\",\r\n  \"businessKey\" : \"default\",\r\n  \"processVariables\" : {\r\n    \"videoId\" : {  \r\n        \"value\": \"cat\", \"type\": \"string\"\r\n    }\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/engine-rest/process-definition/key/friday-merch/start",
+					"raw": "http://localhost:8080/engine-rest/message",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -47,10 +28,65 @@
 					"port": "8080",
 					"path": [
 						"engine-rest",
-						"process-definition",
-						"key",
-						"friday-merch",
-						"start"
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A Video Has Gone Viral CreateMerchandise",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"messageName\" : \"VideoGoneViral\",\r\n  \"businessKey\" : \"default\",\r\n  \"processVariables\" : {\r\n    \"videoId\" : {  \r\n        \"value\": \"cat\", \"type\": \"string\"\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A Topic Has Gone Viral CreateMerchandise",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"messageName\" : \"TopicGoneViral\",\r\n  \"businessKey\" : \"default\",\r\n  \"processVariables\" : {\r\n    \"videoId\" : {  \r\n        \"value\": \"cat\", \"type\": \"string\"\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"message"
 					]
 				}
 			},
