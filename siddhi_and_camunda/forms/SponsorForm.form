@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Have a sponsor?",
+      "type": "checkbox",
+      "id": "Field_1bhqz70",
+      "key": "Have_sponsor",
+      "description": "Do you have a sponser, then select this field."
+    },
+    {
+      "label": "SponsorName",
+      "type": "textfield",
+      "id": "Field_02qoc9l",
+      "key": "Sponsor_name",
+      "description": "Sponsor name"
+    },
+    {
+      "label": "Segment length",
+      "type": "textfield",
+      "id": "Field_12uledu",
+      "key": "Sponsor_segment_length",
+      "description": "How long should the sponsor segment be?"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1i3glh7"
+}

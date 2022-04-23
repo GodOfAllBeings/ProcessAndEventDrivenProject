@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "What should be edited",
+      "type": "textfield",
+      "id": "Field_0ss27ob",
+      "key": "WhatToEditField",
+      "description": "What part of the video should be edited (sound, video)?"
+    },
+    {
+      "label": "Remove or change",
+      "type": "textfield",
+      "id": "Field_1qffex0",
+      "key": "RemoveOrChangeField",
+      "description": "Should the section be removed or changed?"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1n30crg"
+}

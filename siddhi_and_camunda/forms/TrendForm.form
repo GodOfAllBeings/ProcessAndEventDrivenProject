@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Trendfield",
+      "type": "textfield",
+      "id": "Field_1hq989t",
+      "key": "TrendField",
+      "description": "What is trending?",
+      "validate": {
+        "regularExpressionPattern": "Dog|Cat|Other"
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_1xu0kuh"
+}

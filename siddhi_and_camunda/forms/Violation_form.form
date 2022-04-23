@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Violation type",
+      "type": "textfield",
+      "id": "Field_093crsf",
+      "key": "Violation_form",
+      "description": "What type of violation was encoutered?",
+      "validate": {
+        "regularExpressionPattern": "Music|Copyright|Infringement|Fairuse|None"
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0q59ysh"
+}

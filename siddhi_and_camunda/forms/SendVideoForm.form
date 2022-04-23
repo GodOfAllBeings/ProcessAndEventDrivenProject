@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Name of video to send",
+      "type": "textfield",
+      "id": "Field_0kti6xa",
+      "key": "VideoNameToSend",
+      "description": "Input name of the video to send"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0xto22x"
+}
