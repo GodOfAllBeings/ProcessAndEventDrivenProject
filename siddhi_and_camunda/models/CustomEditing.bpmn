@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0lriygj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="CustomEditing" name="Custom Editing" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Need custom editing">
+      <bpmn:outgoing>Flow_1u89bei</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_179mg0t" messageRef="Message_025iakd" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1u89bei" sourceRef="StartEvent_1" targetRef="Activity_036bqi1" />
+    <bpmn:userTask id="Activity_036bqi1" name="User edits sensitive content">
+      <bpmn:incoming>Flow_1u89bei</bpmn:incoming>
+      <bpmn:outgoing>Flow_158se4l</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1mjk0vq">
+      <bpmn:incoming>Flow_158se4l</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_158se4l" sourceRef="Activity_036bqi1" targetRef="Event_1mjk0vq" />
+  </bpmn:process>
+  <bpmn:message id="Message_025iakd" name="CustomEditing" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CustomEditing">
+      <bpmndi:BPMNEdge id="Flow_1u89bei_di" bpmnElement="Flow_1u89bei">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_158se4l_di" bpmnElement="Flow_158se4l">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="432" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1mppuas_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="164" y="142" width="66" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wgugtm_di" bpmnElement="Activity_036bqi1">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1mjk0vq_di" bpmnElement="Event_1mjk0vq">
+        <dc:Bounds x="432" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
