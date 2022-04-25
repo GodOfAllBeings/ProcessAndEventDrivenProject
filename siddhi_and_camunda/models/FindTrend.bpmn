@@ -63,10 +63,6 @@
       </bpmn:sendTask>
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_1d2wm6n" sourceRef="StartEvent_1" targetRef="Activity_1v3tfsj" />
-    <bpmn:serviceTask id="Activity_1v3tfsj" name="Perform trend search" camunda:type="external" camunda:topic="StartSearch">
-      <bpmn:incoming>Flow_1d2wm6n</bpmn:incoming>
-      <bpmn:outgoing>Flow_0llp7o9</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:boundaryEvent id="Event_1lrmvy9" name="Out of requests" attachedToRef="Activity_050cycn">
       <bpmn:outgoing>Flow_1uxmjk3</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_0dmf0rk" errorRef="Error_1x9x9o4" />
@@ -179,7 +175,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1iey5gh" sourceRef="Gateway_04eizfj" targetRef="Gateway_19i0b1w" />
     <bpmn:sequenceFlow id="Flow_04vo199" name="No" sourceRef="Gateway_19i0b1w" targetRef="Activity_0tu7ufb">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{manual=='yes'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{manual=='no'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0ehml6f" name="Yes" sourceRef="Gateway_19i0b1w" targetRef="Activity_19671co">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{manual=='yes'}</bpmn:conditionExpression>
@@ -215,6 +211,15 @@
     <bpmn:userTask id="Activity_03cjw6p" name="Try again? Find manual man to deal with it">
       <bpmn:incoming>Flow_1mxlq1g</bpmn:incoming>
       <bpmn:outgoing>Flow_19g29ur</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1v3tfsj" name="Perform trend search">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="manual" label="manual" type="string" defaultValue="yes" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1d2wm6n</bpmn:incoming>
+      <bpmn:outgoing>Flow_0llp7o9</bpmn:outgoing>
     </bpmn:userTask>
   </bpmn:process>
   <bpmn:signal id="Signal_0fg675t" name="NoMoreRequests" />
@@ -348,6 +353,9 @@
       <bpmndi:BPMNShape id="Activity_163k2ci_di" bpmnElement="Activity_03cjw6p">
         <dc:Bounds x="1340" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0siqq4p_di" bpmnElement="Activity_1v3tfsj">
+        <dc:Bounds x="260" y="517" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_050cycn_di" bpmnElement="Activity_050cycn" isExpanded="true">
         <dc:Bounds x="770" y="400" width="620" height="360" />
       </bpmndi:BPMNShape>
@@ -426,9 +434,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0u2ymvm_di" bpmnElement="Activity_0jzl3tm">
         <dc:Bounds x="900" y="520" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_04fljp1_di" bpmnElement="Activity_1v3tfsj">
-        <dc:Bounds x="260" y="517" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_18lgpko_di" bpmnElement="Activity_0ejrz8k">
         <dc:Bounds x="1330" y="800" width="100" height="80" />
@@ -515,12 +520,6 @@
       <bpmndi:BPMNShape id="Gateway_1hssv2f_di" bpmnElement="Gateway_1hssv2f" isMarkerVisible="true">
         <dc:Bounds x="695" y="532" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_09wtm84_di" bpmnElement="Event_0w7dc5x">
-        <dc:Bounds x="292" y="579" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="263" y="613" width="34" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0nn0oki_di" bpmnElement="Event_15f8kqr">
         <dc:Bounds x="1252" y="382" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -531,6 +530,12 @@
         <dc:Bounds x="1242" y="742" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1172" y="773" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_09wtm84_di" bpmnElement="Event_0w7dc5x">
+        <dc:Bounds x="292" y="579" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="263" y="613" width="34" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
