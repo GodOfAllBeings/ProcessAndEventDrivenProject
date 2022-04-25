@@ -1,3 +1,7 @@
+// Variables
+const countryCodes = ["CA", "DE", "NO", "US", "SE", "GB", "FR", "AU", "BE", "CH"];
+var countriesSearched = 0;
+
 const { Client, logger } = require("camunda-external-task-client-js");
 // const Variables = require("camunda-external-task-client-js");
 const Variables = require("camunda-external-task-client-js/lib/Variables");
@@ -10,80 +14,39 @@ const config = { baseUrl: "http://localhost:8080/engine-rest", use: logger };
 // create a Client instance with custom configuration
 const client = new Client(config);
 
-// susbscribe to the topic: 'creditScoreChecker'
+// susbscribe to the topic: 'RequestCountryCode'. This is the 'Request Country Code' Service Task in the Find Trend diagram.
+client.subscribe("RequestCountryCode", async function({ task, taskService }) {
+    // Put your business logic
+    const countryCode = countryCodes[countriesSearched];
+    console.log("** Returning country code: " + countryCode + "**");
+  
+    const processVariables = new Variables();
+    processVariables.set("countryCode", countryCode);
+    countriesSearched++;
+    processVariables.set("searches", countriesSearched)
+    console.log("** Search number: " + countriesSearched + "**");
+    await taskService.complete(task, processVariables);
+  });
+
+// susbscribe to the topic: 'TrendAPICall'. This is the 'Make API Call' Send Task in the Find Trend diagram.
+// It will poll to this topic until this program completes it
 client.subscribe("TrendAPICall", async function({ task, taskService }) {
   // Put your business logic
-  const countryCode = task.variables.get("countryCode");
+//   const countryCode = task.variables.get("countryCode");
+  const countryCode = countryCodes[countriesSearched];
   console.log("** Performing API search on: " + countryCode + "**");
 
-  const austriaResponse = "Sorry Laff can't help. BTW, Prussia wants a quick word with you...";
-  const processVariables = new Variables();
-  processVariables.set("austriaResponse", austriaResponse);
-
-
-//   // Second version
-//   if(countryCode.includes("Austria")) {
-//     // complete the task
-//     await taskService.complete(task, processVariables);
-//   } else {
-//     // throw a BPMN error
-//     await taskService.handleBpmnError(task, "REFUSE_HELP", "Sorry! We're super busy, you are")
-//   }
-
-  // First version of complete the task
   await taskService.complete(task, processVariables);
-
-  var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  "messageName": "TrendsReceived",
-  "processVariables": {
-    "trends": {
-      "value": "Waffles Are Dope",
-      "type": "String"
-    },
-    "searches": {
-      "value": 10,
-      "type": "Integer"
-    }
-  },
-  "resultEnabled": true,
-  "variablesInResultEnabled": true
 });
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("localhost:8080/engine-rest/message", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-});
-
-// client.subscribe("SendTrend", async function({ task, taskService }) {
-//     // Put your business logic
-//     const bookTitle = "Sup ya'll, it's ya boi Asmongold";
-//     console.log("** Reminder to read: " + bookTitle + "**");
+// susbscribe to the topic: 'SendTrends'. This is the 'Isolate and send top 3' Send Task in the Find Trend diagram.
+// Should be the end of the flow
+client.subscribe("SendTrends", async function({ task, taskService }) {
+    const topTrends = ["Cat", "Bird", "Dog"];
+    console.log("** Top results array: " + topTrends + "**");
+    
+    const processVariables = new Variables();
+    processVariables.set("topTrends", topTrends);
   
-//     const austriaResponse = "Sorry Laff can't help. BTW, Prussia wants a quick word with you...";
-//     const processVariables = new Variables();
-//     processVariables.set("austriaResponse", austriaResponse);
-  
-  
-//   //   // Second version
-//   //   if(bookTitle.includes("Austria")) {
-//   //     // complete the task
-//   //     await taskService.complete(task, processVariables);
-//   //   } else {
-//   //     // throw a BPMN error
-//   //     await taskService.handleBpmnError(task, "REFUSE_HELP", "Sorry! We're super busy, you are")
-//   //   }
-  
-//     // First version of complete the task
-//     await taskService.complete(task, processVariables);
-//   });
+    await taskService.complete(task, processVariables);
+  });

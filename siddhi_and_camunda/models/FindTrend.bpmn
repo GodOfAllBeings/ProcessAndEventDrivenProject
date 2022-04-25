@@ -29,7 +29,7 @@
         <bpmn:incoming>Flow_0368gv8</bpmn:incoming>
         <bpmn:outgoing>Flow_0g3eiwu</bpmn:outgoing>
         <bpmn:timerEventDefinition id="TimerEventDefinition_1b10oql">
-          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT30S</bpmn:timeDuration>
+          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT5M</bpmn:timeDuration>
         </bpmn:timerEventDefinition>
       </bpmn:intermediateCatchEvent>
       <bpmn:sequenceFlow id="Flow_0368gv8" sourceRef="Gateway_0bl45ns" targetRef="Event_03kf070" />
@@ -124,7 +124,7 @@
       <bpmn:incoming>Flow_0tjmelo</bpmn:incoming>
       <bpmn:outgoing>Flow_06gyw3f</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:endEvent id="Event_1y5myqu">
+    <bpmn:endEvent id="Event_1y5myqu" name="Trends Found">
       <bpmn:incoming>Flow_06gyw3f</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_06gyw3f" sourceRef="Activity_1arssgu" targetRef="Event_1y5myqu" />
@@ -475,6 +475,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1y5myqu_di" bpmnElement="Event_1y5myqu">
         <dc:Bounds x="2432" y="562" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2418" y="605" width="69" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1nsfvsf_di" bpmnElement="Activity_1rp1y2w">
         <dc:Bounds x="260" y="680" width="100" height="80" />
