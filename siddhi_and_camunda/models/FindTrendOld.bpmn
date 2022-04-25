@@ -78,6 +78,23 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1djxaar" sourceRef="Activity_050cycn" targetRef="Gateway_0kgstz5" />
     <bpmn:sequenceFlow id="Flow_1mxlq1g" sourceRef="Event_15f8kqr" targetRef="Activity_03cjw6p" />
+    <bpmn:subProcess id="Activity_1o71j1k" triggeredByEvent="true">
+      <bpmn:userTask id="Activity_1qmbq5p" name="Manually override google trends">
+        <bpmn:incoming>Flow_0vxqogi</bpmn:incoming>
+        <bpmn:outgoing>Flow_1u927rz</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:endEvent id="Event_079a8tn">
+        <bpmn:incoming>Flow_1u927rz</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_1u927rz" sourceRef="Activity_1qmbq5p" targetRef="Event_079a8tn" />
+      <bpmn:sequenceFlow id="Flow_0vxqogi" sourceRef="globalPhenomenon" targetRef="Activity_1qmbq5p" />
+      <bpmn:startEvent id="globalPhenomenon" name="Global Phenomenon Occurs">
+        <bpmn:outgoing>Flow_0vxqogi</bpmn:outgoing>
+        <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_0ezga06" camunda:variableName="age">
+          <bpmn:condition xsi:type="bpmn:tFormalExpression">${age&gt;=18}</bpmn:condition>
+        </bpmn:conditionalEventDefinition>
+      </bpmn:startEvent>
+    </bpmn:subProcess>
     <bpmn:boundaryEvent id="Event_0w7dc5x" name="30 min" cancelActivity="false" attachedToRef="Activity_1v3tfsj">
       <bpmn:outgoing>Flow_115qhhu</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_1t1iiyw">
@@ -121,6 +138,23 @@
       <bpmn:incoming>Flow_0quypv4</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0quypv4" sourceRef="Activity_1rp1y2w" targetRef="Event_1oasypx" />
+    <bpmn:subProcess id="Activity_0c2t3mq" triggeredByEvent="true">
+      <bpmn:startEvent id="Event_12jkotf" name="Video went viral">
+        <bpmn:outgoing>Flow_0b1sa8o</bpmn:outgoing>
+        <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_0eetx88" camunda:variableName="viralVideo">
+          <bpmn:condition xsi:type="bpmn:tFormalExpression">#{viralVideo==true}</bpmn:condition>
+        </bpmn:conditionalEventDefinition>
+      </bpmn:startEvent>
+      <bpmn:endEvent id="Event_0pqe56q">
+        <bpmn:incoming>Flow_0npfwbf</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_0b1sa8o" sourceRef="Event_12jkotf" targetRef="Activity_0hbmrcn" />
+      <bpmn:sequenceFlow id="Flow_0npfwbf" sourceRef="Activity_0hbmrcn" targetRef="Event_0pqe56q" />
+      <bpmn:serviceTask id="Activity_0hbmrcn" name="Pick same trend" camunda:type="external" camunda:topic="ViralTrend">
+        <bpmn:incoming>Flow_0b1sa8o</bpmn:incoming>
+        <bpmn:outgoing>Flow_0npfwbf</bpmn:outgoing>
+      </bpmn:serviceTask>
+    </bpmn:subProcess>
     <bpmn:serviceTask id="Activity_0tu7ufb" name="Request Country Code" camunda:type="external" camunda:topic="RequestCountryCode">
       <bpmn:incoming>Flow_04vo199</bpmn:incoming>
       <bpmn:outgoing>Flow_0achhnt</bpmn:outgoing>
@@ -187,53 +221,11 @@
       <bpmn:incoming>Flow_1d2wm6n</bpmn:incoming>
       <bpmn:outgoing>Flow_0llp7o9</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:subProcess id="Activity_1o71j1k" triggeredByEvent="true">
-      <bpmn:endEvent id="Event_079a8tn">
-        <bpmn:incoming>Flow_1u927rz</bpmn:incoming>
-      </bpmn:endEvent>
-      <bpmn:userTask id="Activity_1qmbq5p" name="Manually override google trends" camunda:formKey="">
-        <bpmn:extensionElements>
-          <camunda:formData>
-            <camunda:formField id="GlobalTrend" label="Global Trend" type="string" />
-          </camunda:formData>
-        </bpmn:extensionElements>
-        <bpmn:incoming>Flow_0vxqogi</bpmn:incoming>
-        <bpmn:outgoing>Flow_1u927rz</bpmn:outgoing>
-      </bpmn:userTask>
-      <bpmn:sequenceFlow id="Flow_0vxqogi" sourceRef="globalPhenomenon" targetRef="Activity_1qmbq5p" />
-      <bpmn:sequenceFlow id="Flow_1u927rz" sourceRef="Activity_1qmbq5p" targetRef="Event_079a8tn" />
-      <bpmn:startEvent id="globalPhenomenon" name="Global Phenomenon Occurs">
-        <bpmn:outgoing>Flow_0vxqogi</bpmn:outgoing>
-        <bpmn:messageEventDefinition id="MessageEventDefinition_0ruqbxo" messageRef="Message_1re6o2v" />
-      </bpmn:startEvent>
-    </bpmn:subProcess>
-    <bpmn:subProcess id="Activity_0c2t3mq" triggeredByEvent="true">
-      <bpmn:endEvent id="Event_0pqe56q">
-        <bpmn:incoming>Flow_0npfwbf</bpmn:incoming>
-      </bpmn:endEvent>
-      <bpmn:sequenceFlow id="Flow_0b1sa8o" sourceRef="Event_12jkotf" targetRef="Activity_0hbmrcn" />
-      <bpmn:sequenceFlow id="Flow_0npfwbf" sourceRef="Activity_0hbmrcn" targetRef="Event_0pqe56q" />
-      <bpmn:startEvent id="Event_12jkotf" name="Video went viral">
-        <bpmn:outgoing>Flow_0b1sa8o</bpmn:outgoing>
-        <bpmn:messageEventDefinition id="MessageEventDefinition_0x6q679" messageRef="Message_0sf7il1" />
-      </bpmn:startEvent>
-      <bpmn:sendTask id="Activity_0hbmrcn" name="Pick same trend" camunda:type="external" camunda:topic="ViralTrend">
-        <bpmn:extensionElements>
-          <camunda:inputOutput>
-            <camunda:outputParameter name="Output_23g22n3">${videoName}</camunda:outputParameter>
-          </camunda:inputOutput>
-        </bpmn:extensionElements>
-        <bpmn:incoming>Flow_0b1sa8o</bpmn:incoming>
-        <bpmn:outgoing>Flow_0npfwbf</bpmn:outgoing>
-      </bpmn:sendTask>
-    </bpmn:subProcess>
   </bpmn:process>
   <bpmn:signal id="Signal_0fg675t" name="NoMoreRequests" />
   <bpmn:message id="Message_0r0ypur" name="TrendsReceived" />
   <bpmn:error id="Error_03xyg7q" name="TimeoutError" errorCode="TimeoutError" />
   <bpmn:error id="Error_1x9x9o4" name="OutOfRequests" errorCode="OutOfRequests" />
-  <bpmn:message id="Message_0sf7il1" name="ViralVideo" />
-  <bpmn:message id="Message_1re6o2v" name="GlobalPhenomenon" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="FindTrend">
       <bpmndi:BPMNEdge id="Flow_1hvgph1_di" bpmnElement="Flow_1hvgph1">
@@ -457,17 +449,17 @@
         <di:waypoint x="896" y="180" />
         <di:waypoint x="950" y="180" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0dglkhw_di" bpmnElement="globalPhenomenon">
+        <dc:Bounds x="860" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="845" y="205" width="66" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0rfsf0w_di" bpmnElement="Activity_1qmbq5p">
         <dc:Bounds x="950" y="140" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_079a8tn_di" bpmnElement="Event_079a8tn">
         <dc:Bounds x="1112" y="162" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0hckrka_di" bpmnElement="globalPhenomenon">
-        <dc:Bounds x="860" y="162" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="845" y="205" width="66" height="40" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0kgstz5_di" bpmnElement="Gateway_0kgstz5" isMarkerVisible="true">
         <dc:Bounds x="1545" y="555" width="50" height="50" />
@@ -504,16 +496,16 @@
         <di:waypoint x="486" y="180" />
         <di:waypoint x="540" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Event_0pqe56q_di" bpmnElement="Event_0pqe56q">
-        <dc:Bounds x="702" y="162" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0uplfob_di" bpmnElement="Event_12jkotf">
+      <bpmndi:BPMNShape id="Event_12jkotf_di" bpmnElement="Event_12jkotf">
         <dc:Bounds x="450" y="162" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="430" y="205" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_03kgrtb_di" bpmnElement="Activity_0hbmrcn">
+      <bpmndi:BPMNShape id="Event_0pqe56q_di" bpmnElement="Event_0pqe56q">
+        <dc:Bounds x="702" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_053gqvv_di" bpmnElement="Activity_0hbmrcn">
         <dc:Bounds x="540" y="140" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0t74ody_di" bpmnElement="Activity_0tu7ufb">

@@ -14,6 +14,7 @@ const config = { baseUrl: "http://localhost:8080/engine-rest", use: logger };
 // create a Client instance with custom configuration
 const client = new Client(config);
 
+
 // susbscribe to the topic: 'RequestCountryCode'. This is the 'Request Country Code' Service Task in the Find Trend diagram.
 client.subscribe("RequestCountryCode", async function({ task, taskService }) {
     // Put your business logic
@@ -31,12 +32,10 @@ client.subscribe("RequestCountryCode", async function({ task, taskService }) {
 // susbscribe to the topic: 'TrendAPICall'. This is the 'Make API Call' Send Task in the Find Trend diagram.
 // It will poll to this topic until this program completes it
 client.subscribe("TrendAPICall", async function({ task, taskService }) {
-  // Put your business logic
 //   const countryCode = task.variables.get("countryCode");
   const countryCode = countryCodes[countriesSearched];
   console.log("** Performing API search on: " + countryCode + "**");
-
-  await taskService.complete(task, processVariables);
+  await taskService.complete(task);
 });
 
 // susbscribe to the topic: 'SendTrends'. This is the 'Isolate and send top 3' Send Task in the Find Trend diagram.
@@ -50,3 +49,20 @@ client.subscribe("SendTrends", async function({ task, taskService }) {
   
     await taskService.complete(task, processVariables);
   });
+
+
+client.subscribe("AlertUser", async function({ task, taskService }) {
+    //   const countryCode = task.variables.get("countryCode");
+      console.log("** Trend Search Failed, Notifying Manual Man **");
+      const processVariables = new Variables();
+      await taskService.complete(task, processVariables);
+});
+
+client.subscribe("ViralTrend", async function({ task, taskService }) {
+    //   const countryCode = task.variables.get("countryCode");
+      const processVariables = new Variables();
+      const trendingVideoName = "Cat"
+      console.log("** Viral video: " + trendingVideoName + "**");
+      processVariables.set("videoName", trendingVideoName);
+      await taskService.complete(task, processVariables);
+});
