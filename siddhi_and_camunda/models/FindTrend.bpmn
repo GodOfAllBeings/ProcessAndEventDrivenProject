@@ -63,7 +63,7 @@
       </bpmn:sendTask>
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_1d2wm6n" sourceRef="StartEvent_1" targetRef="Activity_1v3tfsj" />
-    <bpmn:serviceTask id="Activity_1v3tfsj" name="Perform trend search">
+    <bpmn:serviceTask id="Activity_1v3tfsj" name="Perform trend search" camunda:type="external" camunda:topic="StartSearch">
       <bpmn:incoming>Flow_1d2wm6n</bpmn:incoming>
       <bpmn:outgoing>Flow_0llp7o9</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -76,13 +76,11 @@
       <bpmn:errorEventDefinition id="ErrorEventDefinition_0zo8rvu" errorRef="Error_03xyg7q" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_1uxmjk3" sourceRef="Event_1lrmvy9" targetRef="Activity_0ejrz8k" />
-    <bpmn:serviceTask id="Activity_0ejrz8k" name="Group all trends">
+    <bpmn:serviceTask id="Activity_0ejrz8k" name="Group all trends" camunda:type="external" camunda:topic="Useless">
       <bpmn:incoming>Flow_1uxmjk3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tbkp3s</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1djxaar" sourceRef="Activity_050cycn" targetRef="Gateway_0kgstz5" />
-    <bpmn:task id="Activity_03cjw6p" name="Try again? Find manual man to deal with it">
-      <bpmn:incoming>Flow_1mxlq1g</bpmn:incoming>
-    </bpmn:task>
     <bpmn:sequenceFlow id="Flow_1mxlq1g" sourceRef="Event_15f8kqr" targetRef="Activity_03cjw6p" />
     <bpmn:subProcess id="Activity_1o71j1k" triggeredByEvent="true">
       <bpmn:startEvent id="Event_0b4udg9" name="Global Phenomenon Occurs">
@@ -117,24 +115,16 @@
       <bpmn:incoming>Flow_0llp7o9</bpmn:incoming>
       <bpmn:outgoing>Flow_1iey5gh</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0lv6baw" name="No" sourceRef="Gateway_0kgstz5" targetRef="Gateway_04eizfj" />
-    <bpmn:sequenceFlow id="Flow_0pcboew" name="Yes" sourceRef="Gateway_0kgstz5" targetRef="Activity_0c29zps" />
-    <bpmn:serviceTask id="Activity_0c29zps" name="Identify duplicate trends">
-      <bpmn:incoming>Flow_0pcboew</bpmn:incoming>
-      <bpmn:outgoing>Flow_0kmaxyv</bpmn:outgoing>
-    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0lv6baw" name="No" sourceRef="Gateway_0kgstz5" targetRef="Gateway_04eizfj">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{searches!='10'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0pcboew" name="Yes" sourceRef="Gateway_0kgstz5" targetRef="Activity_0c29zps">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{searches=='10'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0kmaxyv" sourceRef="Activity_0c29zps" targetRef="Activity_1ehtlc4" />
-    <bpmn:serviceTask id="Activity_1ehtlc4" name="Aggregate duplicate trends with rank value">
-      <bpmn:incoming>Flow_0kmaxyv</bpmn:incoming>
-      <bpmn:outgoing>Flow_03rtsrn</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_03rtsrn" sourceRef="Activity_1ehtlc4" targetRef="Activity_0eie6f7" />
-    <bpmn:serviceTask id="Activity_0eie6f7" name="Sort list by rank value">
-      <bpmn:incoming>Flow_03rtsrn</bpmn:incoming>
-      <bpmn:outgoing>Flow_0tjmelo</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0tjmelo" sourceRef="Activity_0eie6f7" targetRef="Activity_1arssgu" />
-    <bpmn:sendTask id="Activity_1arssgu" name="Isolate and send top 3">
+    <bpmn:sendTask id="Activity_1arssgu" name="Isolate and send top 3" camunda:type="external" camunda:topic="SendTrends">
       <bpmn:incoming>Flow_0tjmelo</bpmn:incoming>
       <bpmn:outgoing>Flow_06gyw3f</bpmn:outgoing>
     </bpmn:sendTask>
@@ -164,7 +154,7 @@
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_0b1sa8o" sourceRef="Event_12jkotf" targetRef="Activity_0hbmrcn" />
       <bpmn:sequenceFlow id="Flow_0npfwbf" sourceRef="Activity_0hbmrcn" targetRef="Event_0pqe56q" />
-      <bpmn:serviceTask id="Activity_0hbmrcn" name="Pick same trend">
+      <bpmn:serviceTask id="Activity_0hbmrcn" name="Pick same trend" camunda:type="external" camunda:topic="ViralTrend">
         <bpmn:incoming>Flow_0b1sa8o</bpmn:incoming>
         <bpmn:outgoing>Flow_0npfwbf</bpmn:outgoing>
       </bpmn:serviceTask>
@@ -202,11 +192,35 @@
     <bpmn:sequenceFlow id="Flow_0zintlt" sourceRef="Activity_19671co" targetRef="Gateway_1hssv2f" />
     <bpmn:sequenceFlow id="Flow_0achhnt" sourceRef="Activity_0tu7ufb" targetRef="Gateway_1hssv2f" />
     <bpmn:sequenceFlow id="Flow_1hvgph1" sourceRef="Gateway_1hssv2f" targetRef="Activity_050cycn" />
+    <bpmn:userTask id="Activity_0c29zps" name="Identify duplicate trends">
+      <bpmn:incoming>Flow_0pcboew</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kmaxyv</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1ehtlc4" name="Aggregate duplicate trends with rank value">
+      <bpmn:incoming>Flow_0kmaxyv</bpmn:incoming>
+      <bpmn:outgoing>Flow_03rtsrn</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0eie6f7" name="Sort list by rank value">
+      <bpmn:incoming>Flow_03rtsrn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tjmelo</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0a5itp4">
+      <bpmn:incoming>Flow_0tbkp3s</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0tbkp3s" sourceRef="Activity_0ejrz8k" targetRef="Event_0a5itp4" />
+    <bpmn:endEvent id="Event_1e0o2tc">
+      <bpmn:incoming>Flow_19g29ur</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_19g29ur" sourceRef="Activity_03cjw6p" targetRef="Event_1e0o2tc" />
+    <bpmn:userTask id="Activity_03cjw6p" name="Try again? Find manual man to deal with it">
+      <bpmn:incoming>Flow_1mxlq1g</bpmn:incoming>
+      <bpmn:outgoing>Flow_19g29ur</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmn:signal id="Signal_0fg675t" name="NoMoreRequests" />
   <bpmn:message id="Message_0r0ypur" name="TrendsReceived" />
-  <bpmn:error id="Error_03xyg7q" name="TimeoutError" />
-  <bpmn:error id="Error_1x9x9o4" name="OutOfRequests" />
+  <bpmn:error id="Error_03xyg7q" name="TimeoutError" errorCode="TimeoutError" />
+  <bpmn:error id="Error_1x9x9o4" name="OutOfRequests" errorCode="OutOfRequests" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="FindTrend">
       <bpmndi:BPMNEdge id="Flow_1hvgph1_di" bpmnElement="Flow_1hvgph1">
@@ -290,7 +304,7 @@
       <bpmndi:BPMNEdge id="Flow_1mxlq1g_di" bpmnElement="Flow_1mxlq1g">
         <di:waypoint x="1270" y="382" />
         <di:waypoint x="1270" y="340" />
-        <di:waypoint x="1410" y="340" />
+        <di:waypoint x="1340" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1djxaar_di" bpmnElement="Flow_1djxaar">
         <di:waypoint x="1390" y="580" />
@@ -305,8 +319,34 @@
         <di:waypoint x="195" y="557" />
         <di:waypoint x="260" y="557" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tbkp3s_di" bpmnElement="Flow_0tbkp3s">
+        <di:waypoint x="1430" y="840" />
+        <di:waypoint x="1482" y="840" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19g29ur_di" bpmnElement="Flow_19g29ur">
+        <di:waypoint x="1440" y="340" />
+        <di:waypoint x="1492" y="340" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0xkhv5w_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="159" y="539" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_12u1hpl_di" bpmnElement="Activity_0c29zps">
+        <dc:Bounds x="1710" y="540" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xz5r5d_di" bpmnElement="Activity_1ehtlc4">
+        <dc:Bounds x="1890" y="540" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0w1cl86_di" bpmnElement="Activity_0eie6f7">
+        <dc:Bounds x="2070" y="540" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0a5itp4_di" bpmnElement="Event_0a5itp4">
+        <dc:Bounds x="1482" y="822" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1e0o2tc_di" bpmnElement="Event_1e0o2tc">
+        <dc:Bounds x="1492" y="322" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_163k2ci_di" bpmnElement="Activity_03cjw6p">
+        <dc:Bounds x="1340" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_050cycn_di" bpmnElement="Activity_050cycn" isExpanded="true">
         <dc:Bounds x="770" y="400" width="620" height="360" />
@@ -393,9 +433,6 @@
       <bpmndi:BPMNShape id="Activity_18lgpko_di" bpmnElement="Activity_0ejrz8k">
         <dc:Bounds x="1330" y="800" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_03cjw6p_di" bpmnElement="Activity_03cjw6p">
-        <dc:Bounds x="1410" y="300" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0yt1xzp_di" bpmnElement="Activity_1o71j1k" isExpanded="true">
         <dc:Bounds x="820" y="80" width="350" height="200" />
       </bpmndi:BPMNShape>
@@ -427,15 +464,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_04eizfj_di" bpmnElement="Gateway_04eizfj" isMarkerVisible="true">
         <dc:Bounds x="425" y="532" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_159kzak_di" bpmnElement="Activity_0c29zps">
-        <dc:Bounds x="1710" y="540" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_14ay39w_di" bpmnElement="Activity_1ehtlc4">
-        <dc:Bounds x="1890" y="540" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_18uok14_di" bpmnElement="Activity_0eie6f7">
-        <dc:Bounds x="2070" y="540" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1vn95d6_di" bpmnElement="Activity_1arssgu">
         <dc:Bounds x="2250" y="540" width="100" height="80" />
