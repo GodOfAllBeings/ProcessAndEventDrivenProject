@@ -6,7 +6,7 @@
       "type": "textfield",
       "id": "Field_0kti6xa",
       "key": "VideoNameToSend",
-      "description": "Input name of the video to send"
+      "description": "This field could have been a file upload, but for simplicity sakes"
     }
   ],
   "type": "default",
