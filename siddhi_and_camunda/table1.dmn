@@ -2,59 +2,59 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1xnlzuo" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.16.0">
   <decision id="produce" name="Start producing">
     <decisionTable id="DecisionTable_0ghvqef">
-      <input id="Input_1" label="Shirt Color Matches Print?" biodi:width="256" camunda:inputVariable="matches">
+      <input id="Input_1" label="Picture matches shirt colour" biodi:width="256" camunda:inputVariable="matches">
         <inputExpression id="InputExpression_1" typeRef="string" expressionLanguage="feel">
-          <text></text>
+          <text>matches</text>
         </inputExpression>
       </input>
       <input id="InputClause_147q50p" label="Print is royalty free?" camunda:inputVariable="free">
         <inputExpression id="LiteralExpression_04djqqd" typeRef="string" expressionLanguage="feel">
-          <text></text>
+          <text>royaltyFree</text>
         </inputExpression>
       </input>
       <output id="Output_1" label="Start Producing?" name="startProducing" typeRef="string" />
       <rule id="DecisionRule_0xpghnr">
         <inputEntry id="UnaryTests_0y7yjjn">
-          <text>yes</text>
+          <text>"yes"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_039avsk">
-          <text>yes</text>
+          <text>"yes"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0aex15j">
-          <text>yes</text>
+          <text>"yes"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0jxg04m">
         <inputEntry id="UnaryTests_0us6sav">
-          <text>no</text>
+          <text>"no"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1nxm1ot">
-          <text>yes</text>
+          <text>"yes"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0lwcev4">
-          <text>no</text>
+          <text>"no"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0fypwkx">
         <inputEntry id="UnaryTests_1yywhz6">
-          <text>yes</text>
+          <text>"yes"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1vzqga0">
-          <text>no</text>
+          <text>"no"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0nhro2z">
-          <text>no</text>
+          <text>"no"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0qj80sm">
         <inputEntry id="UnaryTests_0hj08y1">
-          <text>no</text>
+          <text>"no"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0kmp62l">
-          <text>no</text>
+          <text>"no"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1sk6666">
-          <text>no</text>
+          <text>"no"</text>
         </outputEntry>
       </rule>
     </decisionTable>
