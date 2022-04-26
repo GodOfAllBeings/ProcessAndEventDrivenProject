@@ -9,5 +9,9 @@ const client = new Client(config);
 client.subscribe("CombineVideos", async function({ task, taskService }) {
     // const videoLink = index.concatVideo("cat");
     // console.log(videoLink);
+
+    // const processVariables = new Variables();
+    // processVariables.set("varName", "some_val");
+
     await taskService.complete(task);
 });
