@@ -66,3 +66,23 @@ client.subscribe("ViralTrend", async function({ task, taskService }) {
       processVariables.set("videoName", trendingVideoName);
       await taskService.complete(task, processVariables);
 });
+
+
+// WORKER FOR CHECKING FOR MerchInStock
+client.subscribe("MerchInStock", async function({ task, taskService }) {
+  const processVariables = new Variables();
+  const merchAvailability = "false"
+  console.log("** Merch is in stock: " + merchAvailability + "**");
+  processVariables.set("inStock", merchAvailability);
+  await taskService.complete(task, processVariables);
+});
+
+client.subscribe("CompletedProcess", async function({ task, taskService }) {
+  const processVariables = new Variables();
+
+  console.log("** A process completed: **");
+  console.log(task);
+  console.log(taskService);
+  
+  await taskService.complete(task, processVariables);
+});
