@@ -218,6 +218,7 @@ bestTrends.forEach(function (value, key) {
 function concatVideo(trend) {
   let videosMatchingTrend = getAllVideoWithPartOfName(trend);
   let outputFilePath = merge(videosMatchingTrend, trend);
+  return outputFilePath;
 }
 
 // The scheduler is set to 20:00 localtime.

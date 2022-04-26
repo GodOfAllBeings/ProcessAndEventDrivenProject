@@ -5,7 +5,7 @@
       "label": "Violation type",
       "type": "textfield",
       "id": "Field_093crsf",
-      "key": "Violation_form",
+      "key": "Violation_type",
       "description": "What type of violation was encoutered?",
       "validate": {
         "regularExpressionPattern": "Music|Copyright|Infringement|Fairuse|None"
