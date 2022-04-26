@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_04inzj6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.16.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_04inzj6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.16.0">
   <bpmn:message id="Message_0174cp5" name="VideoGoneViral" />
   <bpmn:message id="Message_1g7hg4c" name="Stopper" />
   <bpmn:message id="Message_168cjx5" name="PopularTopic" />
@@ -22,23 +22,23 @@
         <bpmn:flowNodeRef>Event_0tfhrqa</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1kqgvdj" name="Trend listener">
-        <bpmn:flowNodeRef>Event_028dj3d</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0ydsul4</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_06gpif5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_027fcii</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_15qw6iw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0ydsul4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_028dj3d</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1fdq7p5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_027fcii</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_06gpif5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_15qw6iw</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1bgy6sc" name="Picture Searcher">
-        <bpmn:flowNodeRef>Activity_0qj616l</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0q14n1y</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_00d3d9c</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_01vl7y2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0we3w94</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_07brcg0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1sowjxc</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ntwe23</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0q14n1y</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0qj616l</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1l5rki1" name="Picture composer">
         <bpmn:flowNodeRef>Gateway_027y8si</bpmn:flowNodeRef>
@@ -49,64 +49,12 @@
       <bpmn:incoming>Flow_0jfps2z</bpmn:incoming>
       <bpmn:outgoing>Flow_0wvtcwv</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:intermediateCatchEvent id="Event_028dj3d" name="Receive popular topic">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="videoId">${videoId}</camunda:outputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0ff95mw</bpmn:incoming>
-      <bpmn:outgoing>Flow_06umu6j</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0a7c59u" messageRef="Message_168cjx5" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:task id="Activity_0ydsul4" name="Find this weeks most searched topic">
-      <bpmn:incoming>Flow_14xkrio</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ff95mw</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:userTask id="Activity_06gpif5" name="We have trending picture ready?">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="relatedPicture" label="Do we have a picture related to viral video called ${viralVideoId}?" type="boolean" defaultValue="true" />
-        </camunda:formData>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="viralVideoId">${videoId}</camunda:inputParameter>
-          <camunda:outputParameter name="relatedPicture">${relatedPicture}</camunda:outputParameter>
-          <camunda:outputParameter name="videoId">${videoId}</camunda:outputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0xtwh0f</bpmn:incoming>
-      <bpmn:outgoing>Flow_0r94ub5</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:startEvent id="StartEvent_1" name="A topic has gone viral&#10;">
-      <bpmn:outgoing>Flow_1913a2e</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_00a76ak" messageRef="Message_0pmq8r5" />
-    </bpmn:startEvent>
-    <bpmn:startEvent id="Event_027fcii" name="One of the channels&#39; videos has gone viral">
-      <bpmn:extensionElements />
-      <bpmn:outgoing>Flow_0xtwh0f</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0bemgx1" messageRef="Message_0174cp5" />
-    </bpmn:startEvent>
-    <bpmn:serviceTask id="Activity_0qj616l" name="Pick the video thumbnail as picture" camunda:expression="=${videoId}!=null" camunda:resultVariable="${validThumb}">
-      <bpmn:incoming>Flow_0ehrcys</bpmn:incoming>
-      <bpmn:outgoing>Flow_0k9oaxx</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="Gateway_0q14n1y">
-      <bpmn:incoming>Flow_0r94ub5</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ylfodd</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1lz574e</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="Gateway_00d3d9c">
       <bpmn:incoming>Flow_1913a2e</bpmn:incoming>
       <bpmn:incoming>Flow_0ylfodd</bpmn:incoming>
       <bpmn:incoming>Flow_06umu6j</bpmn:incoming>
       <bpmn:outgoing>Flow_0wl3fl9</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:boundaryEvent id="Event_15qw6iw" name="10 min" attachedToRef="Activity_06gpif5">
-      <bpmn:outgoing>Flow_0ehrcys</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_14rwrcs">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0wvtcwv" sourceRef="Gateway_027y8si" targetRef="Activity_0extreb" />
     <bpmn:sequenceFlow id="Flow_0k9oaxx" sourceRef="Activity_0qj616l" targetRef="Gateway_027y8si" />
     <bpmn:sequenceFlow id="Flow_0ehrcys" sourceRef="Event_15qw6iw" targetRef="Activity_0qj616l" />
@@ -217,13 +165,65 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">true</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1i6xg48" name="no stock" sourceRef="Gateway_1sowjxc" targetRef="Activity_0ntwe23" />
+    <bpmn:sequenceFlow id="Flow_1fj8r6j" sourceRef="Activity_15tcxw0" targetRef="Event_0tfhrqa" />
+    <bpmn:startEvent id="StartEvent_1" name="A topic has gone viral&#10;">
+      <bpmn:outgoing>Flow_1913a2e</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_00a76ak" messageRef="Message_0pmq8r5" />
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0ydsul4" name="Find this weeks most searched topic">
+      <bpmn:incoming>Flow_14xkrio</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ff95mw</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:intermediateCatchEvent id="Event_028dj3d" name="Receive popular topic">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="videoId">${videoId}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ff95mw</bpmn:incoming>
+      <bpmn:outgoing>Flow_06umu6j</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0a7c59u" messageRef="Message_168cjx5" />
+    </bpmn:intermediateCatchEvent>
     <bpmn:startEvent id="Event_1fdq7p5" name="Friday at 16 o&#39;clock">
       <bpmn:outgoing>Flow_14xkrio</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_1dgbv66">
         <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 16 ? * FRI</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_1fj8r6j" sourceRef="Activity_15tcxw0" targetRef="Event_0tfhrqa" />
+    <bpmn:startEvent id="Event_027fcii" name="One of the channels&#39; videos has gone viral">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_0xtwh0f</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0bemgx1" messageRef="Message_0174cp5" />
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_0q14n1y">
+      <bpmn:incoming>Flow_0r94ub5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ylfodd</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1lz574e</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_0qj616l" name="Pick the video thumbnail as picture" camunda:expression="=${videoId}!=null" camunda:resultVariable="${validThumb}">
+      <bpmn:incoming>Flow_0ehrcys</bpmn:incoming>
+      <bpmn:outgoing>Flow_0k9oaxx</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_06gpif5" name="We have trending picture ready?">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="relatedPicture" label="Do we have a picture related to viral video called ${viralVideoId}?" type="boolean" defaultValue="true" />
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="viralVideoId">${videoId}</camunda:inputParameter>
+          <camunda:outputParameter name="relatedPicture">${relatedPicture}</camunda:outputParameter>
+          <camunda:outputParameter name="videoId">${videoId}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0xtwh0f</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r94ub5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:boundaryEvent id="Event_15qw6iw" name="10 min" attachedToRef="Activity_06gpif5">
+      <bpmn:outgoing>Flow_0ehrcys</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_14rwrcs">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
     <bpmn:textAnnotation id="TextAnnotation_1c986e3">
       <bpmn:text>Here we use the popularTopic variable to determine what to get a picture of</bpmn:text>
     </bpmn:textAnnotation>
@@ -251,6 +251,10 @@
         <dc:Bounds x="190" y="1530" width="1380" height="285" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1fj8r6j_di" bpmnElement="Flow_1fj8r6j">
+        <di:waypoint x="670" y="1650" />
+        <di:waypoint x="992" y="1650" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1i6xg48_di" bpmnElement="Flow_1i6xg48">
         <di:waypoint x="925" y="1010" />
         <di:waypoint x="1060" y="1010" />
@@ -272,16 +276,16 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_14xkrio_di" bpmnElement="Flow_14xkrio">
-        <di:waypoint x="498" y="640" />
-        <di:waypoint x="630" y="640" />
+        <di:waypoint x="498" y="620" />
+        <di:waypoint x="530" y="620" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xtwh0f_di" bpmnElement="Flow_0xtwh0f">
-        <di:waypoint x="270" y="618" />
-        <di:waypoint x="270" y="710" />
+        <di:waypoint x="310" y="618" />
+        <di:waypoint x="310" y="750" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ff95mw_di" bpmnElement="Flow_0ff95mw">
-        <di:waypoint x="730" y="640" />
-        <di:waypoint x="812" y="640" />
+        <di:waypoint x="630" y="620" />
+        <di:waypoint x="662" y="620" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0zcxkan_di" bpmnElement="Flow_0zcxkan">
         <di:waypoint x="890" y="1130" />
@@ -298,18 +302,18 @@
         <di:waypoint x="740" y="1010" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1lz574e_di" bpmnElement="Flow_1lz574e">
-        <di:waypoint x="390" y="1035" />
-        <di:waypoint x="390" y="1130" />
+        <di:waypoint x="400" y="1035" />
+        <di:waypoint x="400" y="1130" />
         <di:waypoint x="790" y="1130" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="296" y="1051" width="88" height="14" />
+          <dc:Bounds x="405" y="1053" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ylfodd_di" bpmnElement="Flow_0ylfodd">
-        <di:waypoint x="415" y="1010" />
+        <di:waypoint x="425" y="1010" />
         <di:waypoint x="539" y="1010" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="427" y="993" width="85" height="14" />
+          <dc:Bounds x="433" y="993" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jfps2z_di" bpmnElement="Flow_0jfps2z">
@@ -320,13 +324,13 @@
         <di:waypoint x="410" y="1315" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0r94ub5_di" bpmnElement="Flow_0r94ub5">
-        <di:waypoint x="320" y="750" />
-        <di:waypoint x="390" y="750" />
-        <di:waypoint x="390" y="985" />
+        <di:waypoint x="360" y="790" />
+        <di:waypoint x="400" y="790" />
+        <di:waypoint x="400" y="985" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1913a2e_di" bpmnElement="Flow_1913a2e">
-        <di:waypoint x="358" y="600" />
-        <di:waypoint x="564" y="600" />
+        <di:waypoint x="428" y="690" />
+        <di:waypoint x="564" y="690" />
         <di:waypoint x="564" y="985" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1qbrk0k_di" bpmnElement="Flow_1qbrk0k">
@@ -335,61 +339,26 @@
         <di:waypoint x="570" y="1650" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_06umu6j_di" bpmnElement="Flow_06umu6j">
-        <di:waypoint x="830" y="658" />
-        <di:waypoint x="830" y="822" />
-        <di:waypoint x="564" y="822" />
+        <di:waypoint x="680" y="638" />
+        <di:waypoint x="680" y="690" />
+        <di:waypoint x="564" y="690" />
         <di:waypoint x="564" y="985" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ehrcys_di" bpmnElement="Flow_0ehrcys">
-        <di:waypoint x="270" y="808" />
-        <di:waypoint x="270" y="960" />
+        <di:waypoint x="310" y="848" />
+        <di:waypoint x="310" y="960" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0k9oaxx_di" bpmnElement="Flow_0k9oaxx">
-        <di:waypoint x="270" y="1040" />
-        <di:waypoint x="270" y="1340" />
+        <di:waypoint x="310" y="1040" />
+        <di:waypoint x="310" y="1340" />
         <di:waypoint x="385" y="1340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0wvtcwv_di" bpmnElement="Flow_0wvtcwv">
         <di:waypoint x="410" y="1365" />
         <di:waypoint x="410" y="1550" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1fj8r6j_di" bpmnElement="Flow_1fj8r6j">
-        <di:waypoint x="670" y="1650" />
-        <di:waypoint x="992" y="1650" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Gateway_027y8si_di" bpmnElement="Gateway_027y8si" isMarkerVisible="true">
         <dc:Bounds x="385" y="1315" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_07jj5ai_di" bpmnElement="Event_028dj3d">
-        <dc:Bounds x="812" y="622" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="857.5" y="626" width="81" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_09jdura_di" bpmnElement="Activity_0ydsul4">
-        <dc:Bounds x="630" y="600" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1yukm6b_di" bpmnElement="Activity_06gpif5">
-        <dc:Bounds x="220" y="710" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0bncmfe_di" bpmnElement="StartEvent_1">
-        <dc:Bounds x="322" y="582" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="299" y="628" width="81" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_17iye2x_di" bpmnElement="Event_027fcii">
-        <dc:Bounds x="252" y="582" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="160" y="580" width="82" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1c760m6_di" bpmnElement="Activity_0qj616l">
-        <dc:Bounds x="220" y="960" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0q14n1y_di" bpmnElement="Gateway_0q14n1y" isMarkerVisible="true">
-        <dc:Bounds x="365" y="985" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_00d3d9c_di" bpmnElement="Gateway_00d3d9c" isMarkerVisible="true">
         <dc:Bounds x="539" y="985" width="50" height="50" />
@@ -431,25 +400,56 @@
       <bpmndi:BPMNShape id="Activity_0u1bh05_di" bpmnElement="Activity_0ntwe23">
         <dc:Bounds x="1060" y="970" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0jyuafo_di" bpmnElement="Event_1fdq7p5">
-        <dc:Bounds x="462" y="622" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="452" y="665" width="59" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1c986e3_di" bpmnElement="TextAnnotation_1c986e3">
         <dc:Bounds x="1110" y="795" width="100" height="109" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1h06n0o_di" bpmnElement="Event_15qw6iw">
-        <dc:Bounds x="252" y="772" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_0bncmfe_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="392" y="672" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="253" y="815" width="34" height="14" />
+          <dc:Bounds x="369" y="718" width="82" height="40" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09jdura_di" bpmnElement="Activity_0ydsul4">
+        <dc:Bounds x="530" y="580" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07jj5ai_di" bpmnElement="Event_028dj3d">
+        <dc:Bounds x="662" y="602" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="708" y="606" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jyuafo_di" bpmnElement="Event_1fdq7p5">
+        <dc:Bounds x="462" y="602" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="452" y="645" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17iye2x_di" bpmnElement="Event_027fcii">
+        <dc:Bounds x="292" y="582" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="219" y="620" width="82" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0q14n1y_di" bpmnElement="Gateway_0q14n1y" isMarkerVisible="true">
+        <dc:Bounds x="375" y="985" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1c760m6_di" bpmnElement="Activity_0qj616l">
+        <dc:Bounds x="260" y="960" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yukm6b_di" bpmnElement="Activity_06gpif5">
+        <dc:Bounds x="260" y="750" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_0hh46vj_di" bpmnElement="Association_0hh46vj">
         <di:waypoint x="1115" y="970" />
         <di:waypoint x="1124" y="904" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1h06n0o_di" bpmnElement="Event_15qw6iw">
+        <dc:Bounds x="292" y="812" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="293" y="855" width="34" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1otz6tt_di" bpmnElement="Participant_1otz6tt" isHorizontal="true">
         <dc:Bounds x="160" y="390" width="1410" height="140" />
       </bpmndi:BPMNShape>
@@ -470,20 +470,20 @@
         <di:waypoint x="968" y="1057" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xffya6_di" bpmnElement="Flow_0xffya6">
-        <di:waypoint x="830" y="530" />
-        <di:waypoint x="830" y="622" />
+        <di:waypoint x="680" y="530" />
+        <di:waypoint x="680" y="602" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_12epk7r_di" bpmnElement="Flow_12epk7r">
-        <di:waypoint x="340" y="530" />
-        <di:waypoint x="340" y="582" />
+        <di:waypoint x="410" y="530" />
+        <di:waypoint x="410" y="672" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0dfwhvw_di" bpmnElement="Flow_0dfwhvw">
-        <di:waypoint x="680" y="600" />
-        <di:waypoint x="680" y="530" />
+        <di:waypoint x="580" y="580" />
+        <di:waypoint x="580" y="530" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_04yac27_di" bpmnElement="Flow_04yac27">
-        <di:waypoint x="270" y="530" />
-        <di:waypoint x="270" y="582" />
+        <di:waypoint x="310" y="530" />
+        <di:waypoint x="310" y="582" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1pqebpl_di" bpmnElement="Flow_1pqebpl">
         <di:waypoint x="790" y="970" />

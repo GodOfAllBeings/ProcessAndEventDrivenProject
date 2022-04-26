@@ -2,14 +2,16 @@
 
 @App:description("Description of the plan")
 
+-- Receive messages about video views, to aggregate them
 @source(type='http', 
     receiver.url='http://localhost:8081/ViewOnVideo', 
     @map(type='json'))
-define stream ViewOnVideo (value string);
+define stream ViewOnVideo (video string);
 
 @sink(type='log')
-define stream LogStream (numberOfEvents long, value string);
+define stream LogStream (numberOfEvents long, video string);
 
+-- This sink creates a message to Camunda signaling that one of the channels' videos have gone viral
 @sink(type='http',
     method='POST',
     publisher.url='http://localhost:8080/engine-rest/message',
@@ -30,11 +32,11 @@ define stream VideoHasGoneViral(videoCount long, videoId string);
 
 --from LogStream[numberOfEvents >= 20]#window.frequent(1) -- returns (1) most frequent
 @info(name = 'select_viral_video')
-from LogStream#window.frequent(1, value)
-select numberOfEvents as videoCount, value as videoId
+from LogStream#window.frequent(1, video)
+select numberOfEvents as videoCount, video as videoId
 having videoCount > 19
 insert into VideoHasGoneViral;
-
+-- Only count views within 10 seconds towards "viral"
 from ViewOnVideo#window.time(10 sec)
-select count(value) as numberOfEvents, value
+select count(video) as numberOfEvents, video
 insert into LogStream;

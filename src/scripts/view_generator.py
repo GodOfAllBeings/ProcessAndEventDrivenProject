@@ -11,9 +11,9 @@ url = 'http://localhost:8081/ViewOnVideo'
 # url = 'http://localhost:3000/'
 
 while True:
-    topic = random.choice(dict)
-    print(topic)
-    fields={'topic': topic}
+    video = random.choice(dict)
+    print(video)
+    fields={'video': video}
     encoded = json.dumps(fields).encode('utf-8')
     r = http.request('POST', url, body=encoded, headers={'Content-Type': 'application/json'})
     time.sleep(random.random())
