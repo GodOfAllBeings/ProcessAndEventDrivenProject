@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Approve video?",
+      "type": "checkbox",
+      "id": "Field_0bytx94",
+      "key": "field_0d0alzb",
+      "description": "Do you approve this video for upload?"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1i783kv"
+}

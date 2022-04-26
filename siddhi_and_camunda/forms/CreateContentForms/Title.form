@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Title for video",
+      "type": "textfield",
+      "id": "Field_1f0xll8",
+      "key": "Title",
+      "description": "Video title",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_10op2km"
+}
