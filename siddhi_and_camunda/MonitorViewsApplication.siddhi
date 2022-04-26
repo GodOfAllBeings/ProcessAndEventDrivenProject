@@ -2,6 +2,7 @@
 
 @App:description("Description of the plan")
 
+--- COUNT VIDEO VIEWS
 -- Receive messages about video views, to aggregate them
 @source(type='http', 
     receiver.url='http://localhost:8081/ViewOnVideo', 
@@ -30,6 +31,65 @@ define stream LogStream (numberOfEvents long, video string);
 )
 define stream VideoHasGoneViral(videoCount long, videoId string);
 
+--- COUNT TOPIC MENTIONS
+-- Receive messages about video views, to aggregate them
+@source(type='http', 
+    receiver.url='http://localhost:8081/TopicMention', 
+    @map(type='json'))
+define stream TopicMention (topic string);
+
+@sink(type='log')
+define stream LogTopicMentions (topicMentions long, topic string);
+
+-- This sink creates a message to Camunda signaling that one of the channels' videos have gone viral
+@sink(type='http',
+    method='POST',
+    publisher.url='http://localhost:8080/engine-rest/message',
+    headers = "'Host:localhost:8080",
+    @map(type='json',
+        @payload("""
+            {
+		        "messageName" : "TopicGoneViral",
+		        "businessKey" : "siddhi",
+		        "processVariables" : {
+		            "topicName": { "value":"{{topic}}", "type":"string"}
+		        }
+            }
+        """)
+    )
+)
+define stream TopicHasGoneViral(topicMentions long, topic string);
+
+--- INTERACTION COUNTER
+-- Receive video interactions and aggregate them
+@source(type='http', 
+    receiver.url='http://localhost:8081/VideoInteraction', 
+    @map(type='json'))
+define stream VideoInteraction (videoInteractedOn string);
+
+@sink(type='log')
+define stream LogInteraction (numberOfInteractions long, videoInteractedOn string);
+
+-- This sink creates a message to Camunda signaling that one of the channels' videos have gone viral
+@sink(type='http',
+    method='POST',
+    publisher.url='http://localhost:8080/engine-rest/message',
+    headers = "'Host:localhost:8080",
+    @map(type='json',
+        @payload("""
+            {
+		        "messageName" : "InteractionsOnVideo",
+		        "businessKey" : "siddhi",
+		        "processVariables" : {
+		            "videoId": { "value":"{{videoInteractedOn}}", "type":"string"}
+		        }
+            }
+        """)
+    )
+)
+define stream HighlyInteractedVideo(numberOfInteractions long, videoInteractedOn string);
+
+--- COUNT VIDEO VIEWS
 --from LogStream[numberOfEvents >= 20]#window.frequent(1) -- returns (1) most frequent
 @info(name = 'select_viral_video')
 from LogStream#window.frequent(1, video)
@@ -40,3 +100,25 @@ insert into VideoHasGoneViral;
 from ViewOnVideo#window.time(10 sec)
 select count(video) as numberOfEvents, video
 insert into LogStream;
+
+--- COUNT TOPICS
+@info(name = 'select_topic_if_viral')
+from LogTopicMentions#window.frequent(1, topic)
+select topicMentions, topic
+having topicMentions > 19
+insert into TopicHasGoneViral;
+-- Only count views within 10 seconds towards "viral"
+from TopicMention#window.time(10 sec)
+select count(topic) as topicMentions, topic
+insert into LogTopicMentions;
+
+--- COUNT VIDEO INTERACTIONS
+@info(name = 'select_video_with_lots_of_interaction')
+from LogInteraction#window.frequent(1, videoInteractedOn)
+select numberOfInteractions, videoInteractedOn
+having numberOfInteractions > 19
+insert into HighlyInteractedVideo;
+-- Only count views within 10 seconds towards "viral"
+from VideoInteraction#window.time(10 sec)
+select count(videoInteractedOn) as numberOfInteractions, videoInteractedOn
+insert into LogInteraction;
