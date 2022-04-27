@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1v8kl3o" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:message id="Message_0o0kmba" name="TopicGoneViral" />
+  <bpmn:message id="Message_1lcm6t5" name="VideoGoneViral" />
+  <bpmn:message id="Message_1egfu89" name="InterractionsOnVideo" />
+  <bpmn:message id="Message_1feyzf1" name="VideoGoneViral" />
+  <bpmn:collaboration id="PoolMessages">
+    <bpmn:participant id="Participant_1hyepqg" name="Bot" processRef="BotPool" />
+    <bpmn:participant id="Participant_0kpd5ec" name="Manual" processRef="ManualPool" />
+    <bpmn:messageFlow id="Flow_0bkw9v5" sourceRef="Activity_01cj1pv" targetRef="Event_1y4asty" />
+    <bpmn:messageFlow id="Flow_0outs80" sourceRef="Event_06edupv" targetRef="Event_0amxcoe" />
+  </bpmn:collaboration>
+  <bpmn:process id="BotPool" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_0kn3r6s" />
+    <bpmn:startEvent id="Event_0qls2qk" name="Regular start">
+      <bpmn:outgoing>Flow_0lqghxx</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0coc5b1">
+      <bpmn:incoming>Flow_0rccag7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0lqghxx" sourceRef="Event_0qls2qk" targetRef="Activity_01cj1pv" />
+    <bpmn:sequenceFlow id="Flow_1q40l4n" sourceRef="Event_0amxcoe" targetRef="Activity_08k2cxc" />
+    <bpmn:sequenceFlow id="Flow_0rccag7" sourceRef="Activity_08k2cxc" targetRef="Event_0coc5b1" />
+    <bpmn:userTask id="Activity_08k2cxc" name="Upload video">
+      <bpmn:incoming>Flow_1q40l4n</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rccag7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateCatchEvent id="Event_0amxcoe">
+      <bpmn:incoming>Flow_10gt7cr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1q40l4n</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0c8cnv2" messageRef="Message_1acmhe8" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_10gt7cr" sourceRef="Gateway_1jq5bpd" targetRef="Event_0amxcoe" />
+    <bpmn:sequenceFlow id="Flow_0xryb8d" sourceRef="Gateway_1jq5bpd" targetRef="Event_1vio7bu" />
+    <bpmn:intermediateCatchEvent id="Event_1vio7bu">
+      <bpmn:incoming>Flow_0xryb8d</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vvtoy7</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_03ietxt">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT5M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_0hogj8j">
+      <bpmn:incoming>Flow_0vvtoy7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0vvtoy7" sourceRef="Event_1vio7bu" targetRef="Event_0hogj8j" />
+    <bpmn:sequenceFlow id="Flow_0162qyg" sourceRef="Activity_01cj1pv" targetRef="Event_1biz2rt" />
+    <bpmn:userTask id="Activity_01cj1pv" name="FindTrends">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="Output_25m6ef8">{"messageName":"ChooseTrend", "instanceID": "${execution.getProcessInstanceId()}"}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0lqghxx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0162qyg</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:eventBasedGateway id="Gateway_1jq5bpd">
+      <bpmn:incoming>Flow_1d2ngss</bpmn:incoming>
+      <bpmn:outgoing>Flow_10gt7cr</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0xryb8d</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateThrowEvent id="Event_1biz2rt">
+      <bpmn:incoming>Flow_0162qyg</bpmn:incoming>
+      <bpmn:outgoing>Flow_1d2ngss</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_01xv7y6" messageRef="Message_1uqmbck" camunda:type="external" camunda:topic="ChooseTrendTopic" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_1d2ngss" sourceRef="Event_1biz2rt" targetRef="Gateway_1jq5bpd" />
+  </bpmn:process>
+  <bpmn:process id="ManualPool" isExecutable="false">
+    <bpmn:sequenceFlow id="Flow_0sdy3m5" sourceRef="Event_1y4asty" targetRef="Activity_0vsayf1" />
+    <bpmn:startEvent id="Event_1y4asty">
+      <bpmn:outgoing>Flow_0sdy3m5</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_199i1kv" messageRef="Message_01vm6hv" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0jv8apk">
+      <bpmn:incoming>Flow_0tfgvh8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Activity_0vsayf1" name="Choose trend" camunda:formKey="camunda-forms:deployment:TrendForm.form">
+      <bpmn:incoming>Flow_0sdy3m5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m4amwi</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0m4amwi" sourceRef="Activity_0vsayf1" targetRef="Event_06edupv" />
+    <bpmn:intermediateThrowEvent id="Event_06edupv">
+      <bpmn:incoming>Flow_0m4amwi</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tfgvh8</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0ajavkm" messageRef="Message_168xz9f" camunda:type="external" camunda:topic="ChosenTrendTopic" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_0tfgvh8" sourceRef="Event_06edupv" targetRef="Event_0jv8apk" />
+  </bpmn:process>
+  <bpmn:message id="Message_1d0jx5w" name="VideoGoneViral" />
+  <bpmn:message id="Message_092cy0w" name="InterractionsOnVideo" />
+  <bpmn:message id="Message_01vm6hv" name="ChooseTrend" />
+  <bpmn:message id="Message_1acmhe8" name="ChosenTrend" />
+  <bpmn:message id="SponserRequest" name="SponserRequest" />
+  <bpmn:message id="Message_1bvka8t" name="SponsorResponse" />
+  <bpmn:message id="Message_1t5l7rf" name="SendForReview" />
+  <bpmn:message id="FinalVideo" name="FinalVideo" />
+  <bpmn:message id="Message_168xz9f" name="ChosenTrend" />
+  <bpmn:message id="Message_03srijp" name="SponserRequest" />
+  <bpmn:message id="Message_1hus9l6" name="SponsorResponse" />
+  <bpmn:message id="Message_096arxs" name="SendForReview" />
+  <bpmn:message id="Message_04lvh0n" name="FinalVideo" />
+  <bpmn:message id="Message_1uqmbck" name="ChooseTrend" />
+  <bpmn:message id="Message_1vngs0i" name="Message_32c6md2" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="PoolMessages">
+      <bpmndi:BPMNShape id="Participant_1hyepqg_di" bpmnElement="Participant_1hyepqg" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="1370" height="370" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0lqghxx_di" bpmnElement="Flow_0lqghxx">
+        <di:waypoint x="296" y="220" />
+        <di:waypoint x="331" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1q40l4n_di" bpmnElement="Flow_1q40l4n">
+        <di:waypoint x="758" y="220" />
+        <di:waypoint x="800" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rccag7_di" bpmnElement="Flow_0rccag7">
+        <di:waypoint x="900" y="220" />
+        <di:waypoint x="953" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10gt7cr_di" bpmnElement="Flow_10gt7cr">
+        <di:waypoint x="635" y="220" />
+        <di:waypoint x="722" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xryb8d_di" bpmnElement="Flow_0xryb8d">
+        <di:waypoint x="610" y="195" />
+        <di:waypoint x="610" y="130" />
+        <di:waypoint x="722" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vvtoy7_di" bpmnElement="Flow_0vvtoy7">
+        <di:waypoint x="758" y="130" />
+        <di:waypoint x="953" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0162qyg_di" bpmnElement="Flow_0162qyg">
+        <di:waypoint x="431" y="220" />
+        <di:waypoint x="482" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d2ngss_di" bpmnElement="Flow_1d2ngss">
+        <di:waypoint x="518" y="220" />
+        <di:waypoint x="585" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0qls2qk_di" bpmnElement="Event_0qls2qk">
+        <dc:Bounds x="260" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="247" y="245" width="64" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0coc5b1_di" bpmnElement="Event_0coc5b1">
+        <dc:Bounds x="953" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wb4jse_di" bpmnElement="Activity_08k2cxc">
+        <dc:Bounds x="800" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_04f8gzz_di" bpmnElement="Event_0amxcoe">
+        <dc:Bounds x="722" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1vio7bu_di" bpmnElement="Event_1vio7bu">
+        <dc:Bounds x="722" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0hogj8j_di" bpmnElement="Event_0hogj8j">
+        <dc:Bounds x="953" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_138dwcb_di" bpmnElement="Activity_01cj1pv">
+        <dc:Bounds x="331" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0wa194u_di" bpmnElement="Gateway_1jq5bpd">
+        <dc:Bounds x="585" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11jhr3q_di" bpmnElement="Event_1biz2rt">
+        <dc:Bounds x="482" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0kpd5ec_di" bpmnElement="Participant_0kpd5ec" isHorizontal="true">
+        <dc:Bounds x="160" y="470" width="1370" height="430" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0sdy3m5_di" bpmnElement="Flow_0sdy3m5">
+        <di:waypoint x="518" y="590" />
+        <di:waypoint x="590" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m4amwi_di" bpmnElement="Flow_0m4amwi">
+        <di:waypoint x="690" y="590" />
+        <di:waypoint x="722" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tfgvh8_di" bpmnElement="Flow_0tfgvh8">
+        <di:waypoint x="758" y="590" />
+        <di:waypoint x="872" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_17x6jzy_di" bpmnElement="Event_1y4asty">
+        <dc:Bounds x="482" y="572" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jv8apk_di" bpmnElement="Event_0jv8apk">
+        <dc:Bounds x="872" y="572" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vsayf1_di" bpmnElement="Activity_0vsayf1">
+        <dc:Bounds x="590" y="550" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13bz2ss_di" bpmnElement="Event_06edupv">
+        <dc:Bounds x="722" y="572" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0bkw9v5_di" bpmnElement="Flow_0bkw9v5">
+        <di:waypoint x="381" y="260" />
+        <di:waypoint x="381" y="416" />
+        <di:waypoint x="500" y="416" />
+        <di:waypoint x="500" y="572" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0outs80_di" bpmnElement="Flow_0outs80">
+        <di:waypoint x="740" y="572" />
+        <di:waypoint x="740" y="238" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

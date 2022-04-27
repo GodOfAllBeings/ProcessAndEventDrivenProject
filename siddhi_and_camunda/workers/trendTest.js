@@ -86,3 +86,14 @@ client.subscribe("CompletedProcess", async function({ task, taskService }) {
   
   await taskService.complete(task, processVariables);
 });
+
+
+
+// Delete when done with CreateContent
+client.subscribe("ChooseTrendTopic", async function({ task, taskService }) {
+    const processVariables = new Variables();
+  
+    console.log("** Choose Trend Topic: **");
+    
+    await taskService.complete(task, processVariables);
+  });
