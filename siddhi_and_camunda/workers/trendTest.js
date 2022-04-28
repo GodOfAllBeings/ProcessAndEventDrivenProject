@@ -67,6 +67,11 @@ client.subscribe("ViralTrend", async function({ task, taskService }) {
       await taskService.complete(task, processVariables);
 });
 
+/* 
+**
+**    WORKERS FOR MERCH
+**
+*/ 
 
 // WORKER FOR CHECKING FOR MerchInStock
 client.subscribe("MerchInStock", async function({ task, taskService }) {
@@ -77,14 +82,10 @@ client.subscribe("MerchInStock", async function({ task, taskService }) {
   await taskService.complete(task, processVariables);
 });
 
+// Receives and prints a confirmation of a successful process run
 client.subscribe("CompletedProcess", async function({ task, taskService }) {
-  const processVariables = new Variables();
-
-  console.log("** A process completed: **");
-  console.log(task);
-  console.log(taskService);
-  
-  await taskService.complete(task, processVariables);
+  console.log("** A process completed: **");console.log(task);console.log(taskService);
+  await taskService.complete(task, new Variables());
 });
 
 
@@ -96,4 +97,4 @@ client.subscribe("ChooseTrendTopic", async function({ task, taskService }) {
     console.log("** Choose Trend Topic: **");
     
     await taskService.complete(task, processVariables);
-  });
+});
