@@ -61,7 +61,7 @@ client.subscribe("AlertUser", async function({ task, taskService }) {
 client.subscribe("ViralTrend", async function({ task, taskService }) {
     //   const countryCode = task.variables.get("countryCode");
       const processVariables = new Variables();
-      const trendingVideoName = "Cat"
+      const trendingVideoName = "Cats"
       console.log("** Viral video: " + trendingVideoName + "**");
       processVariables.set("videoName", trendingVideoName);
       await taskService.complete(task, processVariables);
@@ -76,7 +76,12 @@ client.subscribe("ViralTrend", async function({ task, taskService }) {
 // WORKER FOR CHECKING FOR MerchInStock
 client.subscribe("MerchInStock", async function({ task, taskService }) {
   const processVariables = new Variables();
-  const merchAvailability = "false"
+  let merchAvailability;
+  if(task.variables.get("videoId") == "lolCatz") {
+    merchAvailability = "true";
+  } else {
+    merchAvailability = "false";
+  }
   console.log("** Merch is in stock: " + merchAvailability + "**");
   processVariables.set("inStock", merchAvailability);
   await taskService.complete(task, processVariables);
@@ -88,7 +93,14 @@ client.subscribe("CompletedProcess", async function({ task, taskService }) {
   await taskService.complete(task, new Variables());
 });
 
-
+client.subscribe("PopularTopic", async function({ task, taskService }) {
+  //   const countryCode = task.variables.get("countryCode");
+    const processVariables = new Variables();
+    const trendingVideoName = "lolCatz"
+    console.log("** Viral video: " + trendingVideoName + "**");
+    processVariables.set("topicName", trendingVideoName);
+    await taskService.complete(task, processVariables);
+});
 
 // Delete when done with CreateContent
 client.subscribe("ChooseTrendTopic", async function({ task, taskService }) {
