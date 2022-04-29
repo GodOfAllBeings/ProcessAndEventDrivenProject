@@ -140,17 +140,13 @@
       <bpmn:outgoing>Flow_03ecfr5</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:intermediateCatchEvent id="Event_1xedawv">
-      <bpmn:incoming>Flow_023pv07</bpmn:incoming>
+      <bpmn:incoming>Flow_02d0ar1</bpmn:incoming>
       <bpmn:outgoing>Flow_0xfke0a</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0noae72" messageRef="Message_1acmhe8" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:eventBasedGateway id="Gateway_1g1o9ak">
-      <bpmn:incoming>Flow_1dwf5ec</bpmn:incoming>
-      <bpmn:outgoing>Flow_023pv07</bpmn:outgoing>
-    </bpmn:eventBasedGateway>
     <bpmn:intermediateThrowEvent id="Event_0akw1v8">
       <bpmn:incoming>Flow_1enpe9x</bpmn:incoming>
-      <bpmn:outgoing>Flow_1dwf5ec</bpmn:outgoing>
+      <bpmn:outgoing>Flow_02d0ar1</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1jn0wkf" messageRef="Message_01vm6hv" camunda:type="external" camunda:topic="ChooseTrendTopic" />
     </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="Flow_1aofch8" sourceRef="Event_0e6536u" targetRef="Gateway_1tmpy9d" />
@@ -190,18 +186,9 @@
     <bpmn:sequenceFlow id="Flow_0qleccu" sourceRef="Gateway_00eha0f" targetRef="Event_0v7i29n" />
     <bpmn:sequenceFlow id="Flow_0nznq1r" sourceRef="Event_0v7i29n" targetRef="Gateway_0001g8j" />
     <bpmn:sequenceFlow id="Flow_0xfke0a" sourceRef="Event_1xedawv" targetRef="Gateway_1tmpy9d" />
-    <bpmn:sequenceFlow id="Flow_023pv07" sourceRef="Gateway_1g1o9ak" targetRef="Event_1xedawv" />
-    <bpmn:sequenceFlow id="Flow_1dwf5ec" sourceRef="Event_0akw1v8" targetRef="Gateway_1g1o9ak" />
+    <bpmn:sequenceFlow id="Flow_02d0ar1" sourceRef="Event_0akw1v8" targetRef="Event_1xedawv" />
   </bpmn:process>
   <bpmn:process id="CreateContentManualPool" isExecutable="false">
-    <bpmn:userTask id="Activity_0vsayf1" name="Choose trend" camunda:formKey="camunda-forms:deployment:TrendForm.form">
-      <bpmn:incoming>Flow_0sdy3m5</bpmn:incoming>
-      <bpmn:outgoing>Flow_0o2t5bu</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:startEvent id="Event_1y4asty">
-      <bpmn:outgoing>Flow_0sdy3m5</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0d6vhtw" messageRef="Message_01vm6hv" />
-    </bpmn:startEvent>
     <bpmn:userTask id="Activity_149k0r8" name="Send sponsor info" camunda:formKey="camunda-forms:deployment:SponsorForm.form">
       <bpmn:incoming>Flow_05dcdfa</bpmn:incoming>
       <bpmn:outgoing>Flow_0ctnr4l</bpmn:outgoing>
@@ -266,7 +253,6 @@
       <bpmn:incoming>Flow_0o2t5bu</bpmn:incoming>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1an1te6" messageRef="Message_168xz9f" camunda:type="external" camunda:topic="ChosenTrendTopic" />
     </bpmn:intermediateThrowEvent>
-    <bpmn:sequenceFlow id="Flow_0sdy3m5" sourceRef="Event_1y4asty" targetRef="Activity_0vsayf1" />
     <bpmn:sequenceFlow id="Flow_0o2t5bu" sourceRef="Activity_0vsayf1" targetRef="Event_1j65zp1" />
     <bpmn:sequenceFlow id="Flow_05dcdfa" sourceRef="Event_0s3v84i" targetRef="Activity_149k0r8" />
     <bpmn:sequenceFlow id="Flow_0ctnr4l" sourceRef="Activity_149k0r8" targetRef="Event_1tj0kut" />
@@ -286,6 +272,15 @@
     <bpmn:sequenceFlow id="Flow_0e7en3m" sourceRef="Activity_0c3py4g" targetRef="Gateway_1xq18rp" />
     <bpmn:sequenceFlow id="Flow_06vwhob" sourceRef="Gateway_1xq18rp" targetRef="Activity_1ov1c5d" />
     <bpmn:sequenceFlow id="Flow_1dk39d9" sourceRef="Activity_1ov1c5d" targetRef="Event_1mqfpfe" />
+    <bpmn:userTask id="Activity_0vsayf1" name="Choose trend" camunda:formKey="camunda-forms:deployment:TrendForm.form">
+      <bpmn:incoming>Flow_0sdy3m5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0o2t5bu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0sdy3m5" sourceRef="Event_1y4asty" targetRef="Activity_0vsayf1" />
+    <bpmn:startEvent id="Event_1y4asty">
+      <bpmn:outgoing>Flow_0sdy3m5</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0d6vhtw" messageRef="Message_01vm6hv" />
+    </bpmn:startEvent>
   </bpmn:process>
   <bpmn:message id="Message_1kytzhv" name="VideoGoneViral" />
   <bpmn:message id="Message_1sza1o7" name="InterractionsOnVideo" />
@@ -302,14 +297,6 @@
       <bpmndi:BPMNShape id="Participant_1hyepqg_di" bpmnElement="Participant_1hyepqg" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="2830" height="410" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1dwf5ec_di" bpmnElement="Flow_1dwf5ec">
-        <di:waypoint x="484" y="340" />
-        <di:waypoint x="511" y="340" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_023pv07_di" bpmnElement="Flow_023pv07">
-        <di:waypoint x="561" y="340" />
-        <di:waypoint x="598" y="340" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xfke0a_di" bpmnElement="Flow_0xfke0a">
         <di:waypoint x="616" y="322" />
         <di:waypoint x="616" y="245" />
@@ -449,6 +436,10 @@
         <di:waypoint x="616" y="120" />
         <di:waypoint x="616" y="195" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02d0ar1_di" bpmnElement="Flow_02d0ar1">
+        <di:waypoint x="484" y="340" />
+        <di:waypoint x="598" y="340" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0e6536u_di" bpmnElement="Event_0e6536u">
         <dc:Bounds x="235" y="102" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -548,9 +539,6 @@
       <bpmndi:BPMNShape id="Event_1xedawv_di" bpmnElement="Event_1xedawv">
         <dc:Bounds x="598" y="322" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_01d7ul3_di" bpmnElement="Gateway_1g1o9ak">
-        <dc:Bounds x="511" y="315" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0akw1v8_di" bpmnElement="Event_0akw1v8">
         <dc:Bounds x="448" y="322" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -626,19 +614,13 @@
         <di:waypoint x="847" y="691" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0o2t5bu_di" bpmnElement="Flow_0o2t5bu">
-        <di:waypoint x="477" y="691" />
+        <di:waypoint x="561" y="691" />
         <di:waypoint x="598" y="691" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0sdy3m5_di" bpmnElement="Flow_0sdy3m5">
-        <di:waypoint x="325" y="691" />
-        <di:waypoint x="377" y="691" />
+        <di:waypoint x="417" y="691" />
+        <di:waypoint x="461" y="691" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Activity_0vsayf1_di" bpmnElement="Activity_0vsayf1">
-        <dc:Bounds x="377" y="651" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0cjpnji_di" bpmnElement="Event_1y4asty">
-        <dc:Bounds x="289" y="673" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_149k0r8_di" bpmnElement="Activity_149k0r8">
         <dc:Bounds x="847" y="651" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -684,11 +666,17 @@
       <bpmndi:BPMNShape id="Event_1j65zp1_di" bpmnElement="Event_1j65zp1">
         <dc:Bounds x="598" y="673" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vsayf1_di" bpmnElement="Activity_0vsayf1">
+        <dc:Bounds x="461" y="651" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0cjpnji_di" bpmnElement="Event_1y4asty">
+        <dc:Bounds x="381" y="673" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1omkic7_di" bpmnElement="Flow_1omkic7">
         <di:waypoint x="466" y="358" />
         <di:waypoint x="466" y="520" />
-        <di:waypoint x="307" y="520" />
-        <di:waypoint x="307" y="673" />
+        <di:waypoint x="399" y="520" />
+        <di:waypoint x="399" y="673" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hompwh_di" bpmnElement="Flow_1hompwh">
         <di:waypoint x="616" y="673" />
