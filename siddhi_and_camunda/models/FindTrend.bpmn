@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0dsa370" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0dsa370" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:process id="FindTrend" name="Find Trend" isExecutable="true" camunda:versionTag="2">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_12t03ts</bpmn:outgoing>
@@ -62,19 +62,10 @@
         <bpmn:outgoing>Flow_1ua3e4v</bpmn:outgoing>
       </bpmn:sendTask>
     </bpmn:subProcess>
-    <bpmn:boundaryEvent id="Event_1lrmvy9" name="Out of requests" attachedToRef="Activity_050cycn">
-      <bpmn:outgoing>Flow_1uxmjk3</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_0dmf0rk" errorRef="Error_1x9x9o4" />
-    </bpmn:boundaryEvent>
     <bpmn:boundaryEvent id="Event_15f8kqr" name="Timeout Error" attachedToRef="Activity_050cycn">
       <bpmn:outgoing>Flow_1mxlq1g</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_0zo8rvu" errorRef="Error_03xyg7q" />
     </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="Flow_1uxmjk3" sourceRef="Event_1lrmvy9" targetRef="Activity_0ejrz8k" />
-    <bpmn:serviceTask id="Activity_0ejrz8k" name="Group all trends" camunda:type="external" camunda:topic="Useless">
-      <bpmn:incoming>Flow_1uxmjk3</bpmn:incoming>
-      <bpmn:outgoing>Flow_0tbkp3s</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1djxaar" sourceRef="Activity_050cycn" targetRef="Gateway_0kgstz5" />
     <bpmn:sequenceFlow id="Flow_1mxlq1g" sourceRef="Event_15f8kqr" targetRef="Activity_03cjw6p" />
     <bpmn:exclusiveGateway id="Gateway_0kgstz5" name="Completed 10 searches?">
@@ -139,10 +130,6 @@
       <bpmn:incoming>Flow_0pcboew</bpmn:incoming>
       <bpmn:outgoing>Flow_0kmaxyv</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="Event_0a5itp4">
-      <bpmn:incoming>Flow_0tbkp3s</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0tbkp3s" sourceRef="Activity_0ejrz8k" targetRef="Event_0a5itp4" />
     <bpmn:endEvent id="Event_1e0o2tc">
       <bpmn:incoming>Flow_19g29ur</bpmn:incoming>
     </bpmn:endEvent>
@@ -223,10 +210,6 @@
         <di:waypoint x="1420" y="130" />
         <di:waypoint x="1472" y="130" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0tbkp3s_di" bpmnElement="Flow_0tbkp3s">
-        <di:waypoint x="1410" y="630" />
-        <di:waypoint x="1462" y="630" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hvgph1_di" bpmnElement="Flow_1hvgph1">
         <di:waypoint x="725" y="347" />
         <di:waypoint x="750" y="347" />
@@ -293,11 +276,6 @@
       <bpmndi:BPMNEdge id="Flow_1djxaar_di" bpmnElement="Flow_1djxaar">
         <di:waypoint x="1370" y="370" />
         <di:waypoint x="1525" y="370" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1uxmjk3_di" bpmnElement="Flow_1uxmjk3">
-        <di:waypoint x="1240" y="568" />
-        <di:waypoint x="1240" y="630" />
-        <di:waypoint x="1310" y="630" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0xkhv5w_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="152" y="329" width="36" height="36" />
@@ -381,9 +359,6 @@
       <bpmndi:BPMNShape id="Activity_0u2ymvm_di" bpmnElement="Activity_0jzl3tm">
         <dc:Bounds x="880" y="310" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_18lgpko_di" bpmnElement="Activity_0ejrz8k">
-        <dc:Bounds x="1310" y="590" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0kgstz5_di" bpmnElement="Gateway_0kgstz5" isMarkerVisible="true">
         <dc:Bounds x="1525" y="345" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -420,17 +395,11 @@
       <bpmndi:BPMNShape id="Activity_12u1hpl_di" bpmnElement="Activity_0c29zps">
         <dc:Bounds x="1670" y="330" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0a5itp4_di" bpmnElement="Event_0a5itp4">
-        <dc:Bounds x="1462" y="612" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1e0o2tc_di" bpmnElement="Event_1e0o2tc">
         <dc:Bounds x="1472" y="112" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_163k2ci_di" bpmnElement="Activity_03cjw6p">
         <dc:Bounds x="1320" y="90" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1v3tfsj_di" bpmnElement="Activity_1v3tfsj">
-        <dc:Bounds x="250" y="307" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0yt1xzp_di" bpmnElement="Activity_1o71j1k" isExpanded="true">
         <dc:Bounds x="750" y="600" width="350" height="200" />
@@ -478,16 +447,13 @@
           <dc:Bounds x="352" y="725" width="78" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1v3tfsj_di" bpmnElement="Activity_1v3tfsj">
+        <dc:Bounds x="250" y="307" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0nn0oki_di" bpmnElement="Event_15f8kqr">
         <dc:Bounds x="1232" y="172" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1166" y="173" width="68" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_15ggogr_di" bpmnElement="Event_1lrmvy9">
-        <dc:Bounds x="1222" y="532" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1152" y="563" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
