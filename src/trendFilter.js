@@ -18,6 +18,7 @@ function saveTrend(trendRes, country) {
 
   // stringify JSON Object. Argument 3 makes json pretty
   let trendString = JSON.stringify(trendRes, null, 2);
+  console.log("Saving trends for country: " + country);
   console.log(trendString);
 
   // fs.writeFile(`${trendFilePath}/trend-${country}-${(new Date().toJSON().slice(0,10))}.json`, trendString, 'utf8', function (err) {
@@ -111,7 +112,11 @@ function createTrendArray() {
     jsonTrends = jsonTrends.concat(jsonTrend);
   });
 
-  //   console.log(jsonTrends);
+  // console.log(jsonTrends);
+  // jsonTrends.forEach(element => {
+  //   console.log(element.trendingSearchTitle.searchTitle);
+  // });
+  // let trend = jsonObj["trendingSearchTitle"]["searchTitle"];
   return jsonTrends;
 }
 // mergeVideos();
@@ -166,7 +171,7 @@ function getBestTrends() {
   const trendMapSort = new Map(
     [...trendMap.entries()].sort((a, b) => b[1] - a[1])
   );
-  //   console.log(trendMapSort);
+    // console.log(trendMapSort);
   return trendMapSort;
 }
 module.exports = { saveTrend, getBestTrends };

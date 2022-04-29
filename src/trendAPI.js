@@ -3,18 +3,17 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios").default;
 
-// main();
 
 async function main(countryCode) {
-  let cc = countryCode ?? "ca";
+  // let cc = countryCode ?? "ca";
 
-  let validCC = validCountryCode(cc);
+  let validCC = validCountryCode(countryCode);
 
   if(validCC != true){
     return;
   }
    
-  let googleTrend = await getTrendsData(cc);
+  let googleTrend = await getTrendsData(countryCode);
   
   // Parse trends data to form:
   // {rankId: int, searchTitle: 'string'}[]
@@ -30,9 +29,8 @@ async function main(countryCode) {
   return googleTrend;
 }
 
-
 function validCountryCode(code) {
-  let countries = fs.readFileSync(path.join(__dirname, "../country_codes.json"), 'utf8');
+  let countries = fs.readFileSync(path.join(__dirname, "../assets/other/country_codes.json"), 'utf8');
   return JSON.parse(countries).countryList.map(country => country.countryCode.toLowerCase()).indexOf(code.toLowerCase()) > -1;
 }
 
@@ -46,9 +44,7 @@ function yyyymmdd() {
   return '' + y + mm + dd;
 }
 
-
 async function getTrendsData(requestedCountry) {
-
   let requestId = 'requestId';
   let countryCode = requestedCountry.toUpperCase();
   let resultCount = '15'; // Max 20
@@ -70,7 +66,37 @@ async function getTrendsData(requestedCountry) {
   
   await axios(options).then(response => result = response.data).catch( error => result = error);
 
+  // console.log("Result in getTrendsData:");
+  // console.log(result);
+  // let resultString = JSON.stringify(result);
+  // console.log("Result as string in getTrendsData:");
+  // console.log(resultString);
   return result;
 }
 
-module.exports = {main}
+complete();
+async function complete() {
+
+  var data = JSON.stringify({
+    "messageName": "TrendsReceived"
+  });
+
+  let options = {
+    method: 'post',
+    url: `localhost:8080/engine-rest/message`,
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  await axios(options)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+module.exports = {main, complete}

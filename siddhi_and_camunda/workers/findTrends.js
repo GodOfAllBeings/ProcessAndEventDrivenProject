@@ -1,8 +1,11 @@
 // Variables
 const countryCodes = ["CA", "DE", "NO", "US", "SE", "GB", "FR", "AU", "BE", "CH"];
 var countriesSearched = 0;
+var axios = require('axios');
 
 const { Client, logger } = require("camunda-external-task-client-js");
+const TrendAPI = require("../../src/trendAPI.js");
+const TrendFilter = require("../../src/trendFilter.js");
 // const Variables = require("camunda-external-task-client-js");
 const Variables = require("camunda-external-task-client-js/lib/Variables");
 
@@ -29,14 +32,32 @@ client.subscribe("RequestCountryCode", async function({ task, taskService }) {
     await taskService.complete(task, processVariables);
   });
 
+
 // susbscribe to the topic: 'TrendAPICall'. This is the 'Make API Call' Send Task in the Find Trend diagram.
 // It will poll to this topic until this program completes it
 client.subscribe("TrendAPICall", async function({ task, taskService }) {
-//   const countryCode = task.variables.get("countryCode");
-  const countryCode = countryCodes[countriesSearched];
+  const countryCode = task.variables.get("countryCode");
+  // const countryCode = countryCodes[countriesSearched];
   console.log("** Performing API search on: " + countryCode + "**");
+  // let trendResp = await TrendAPI.main(countryCode);
+  // console.log("Trend Resp in findTrends.js");
+  // console.log(trendResp)
+  // TrendFilter.saveTrend(trendResp, countryCode);
   await taskService.complete(task);
+  await TrendAPI.complete();
 });
+
+// testFunc("CA");
+// function testFunc(countryCode) {
+//   let trendResp = await TrendAPI.main(countryCode);
+//   console.log("Trend Resp in findTrends.js");
+//   console.log(trendResp)
+//   TrendFilter.saveTrend(trendResp, countryCode);
+// }
+comp();
+async function comp() {
+  TrendAPI.complete();
+}
 
 // susbscribe to the topic: 'SendTrends'. This is the 'Isolate and send top 3' Send Task in the Find Trend diagram.
 // Should be the end of the flow
@@ -89,7 +110,9 @@ client.subscribe("MerchInStock", async function({ task, taskService }) {
 
 // Receives and prints a confirmation of a successful process run
 client.subscribe("CompletedProcess", async function({ task, taskService }) {
-  console.log("** A process completed: **");console.log(task);console.log(taskService);
+  console.log("** A process completed: **");
+  // console.log(task);
+  // console.log(taskService);
   await taskService.complete(task, new Variables());
 });
 
