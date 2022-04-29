@@ -17,7 +17,6 @@
         <bpmn:incoming>Flow_1ua3e4v</bpmn:incoming>
         <bpmn:outgoing>Flow_13667kf</bpmn:outgoing>
         <bpmn:outgoing>Flow_0368gv8</bpmn:outgoing>
-        <bpmn:outgoing>Flow_16bmlmb</bpmn:outgoing>
       </bpmn:eventBasedGateway>
       <bpmn:intermediateCatchEvent id="Event_1k5swlb" name="TrendsReceived">
         <bpmn:incoming>Flow_13667kf</bpmn:incoming>
@@ -41,17 +40,6 @@
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_1cx2vue" sourceRef="Event_09f8nu4" targetRef="Activity_0jzl3tm" />
       <bpmn:sequenceFlow id="Flow_1ua3e4v" sourceRef="Activity_0jzl3tm" targetRef="Gateway_0bl45ns" />
-      <bpmn:intermediateCatchEvent id="Event_0b7xoue" name="No more requests">
-        <bpmn:incoming>Flow_16bmlmb</bpmn:incoming>
-        <bpmn:outgoing>Flow_0lbb3uh</bpmn:outgoing>
-        <bpmn:signalEventDefinition id="SignalEventDefinition_0zqc7hk" signalRef="Signal_0fg675t" />
-      </bpmn:intermediateCatchEvent>
-      <bpmn:sequenceFlow id="Flow_16bmlmb" sourceRef="Gateway_0bl45ns" targetRef="Event_0b7xoue" />
-      <bpmn:sequenceFlow id="Flow_0lbb3uh" sourceRef="Event_0b7xoue" targetRef="Event_0flw4lh" />
-      <bpmn:endEvent id="Event_0flw4lh" name="Out of requests">
-        <bpmn:incoming>Flow_0lbb3uh</bpmn:incoming>
-        <bpmn:errorEventDefinition id="ErrorEventDefinition_0af5a5m" errorRef="Error_1x9x9o4" />
-      </bpmn:endEvent>
       <bpmn:sendTask id="Activity_0jzl3tm" name="Make API Call" camunda:type="external" camunda:topic="TrendAPICall">
         <bpmn:extensionElements>
           <camunda:inputOutput>
@@ -283,15 +271,6 @@
       <bpmndi:BPMNShape id="Activity_050cycn_di" bpmnElement="Activity_050cycn" isExpanded="true">
         <dc:Bounds x="750" y="190" width="620" height="360" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0lbb3uh_di" bpmnElement="Flow_0lbb3uh">
-        <di:waypoint x="1178" y="449" />
-        <di:waypoint x="1242" y="449" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_16bmlmb_di" bpmnElement="Flow_16bmlmb">
-        <di:waypoint x="1060" y="375" />
-        <di:waypoint x="1060" y="449" />
-        <di:waypoint x="1142" y="449" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ua3e4v_di" bpmnElement="Flow_1ua3e4v">
         <di:waypoint x="980" y="350" />
         <di:waypoint x="1035" y="350" />
@@ -342,18 +321,6 @@
         <dc:Bounds x="1242" y="249" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1226" y="292" width="68" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0b7xoue_di" bpmnElement="Event_0b7xoue">
-        <dc:Bounds x="1142" y="431" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1116" y="474" width="88" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0cfd2rz_di" bpmnElement="Event_0flw4lh">
-        <dc:Bounds x="1242" y="431" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1222" y="474" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0u2ymvm_di" bpmnElement="Activity_0jzl3tm">
