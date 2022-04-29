@@ -1,8 +1,0 @@
-@App:name('CreateMerchandiseStreams')
-@App:description('Several Streams involved in processing the event for creating merchandise')
-
-define stream TopicMentionStream (topicId string, amountOfMentions long);
-
-define stream VideoViewStream (videoId string, amountOfViews long);
-
-from TopicMentionStream and VideoViewStream select topicId, videoId, amountOfMentions, amountOfViews group by topicId, videoId insert into WordCountStream

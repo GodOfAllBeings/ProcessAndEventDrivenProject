@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_04inzj6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.16.0">
-  <bpmn:message id="Message_0174cp5" name="VideoGoneViral" />
+  <bpmn:message id="Message_0174cp5" name="VideoGoneViral_CreateMerch" />
   <bpmn:message id="Message_1g7hg4c" name="Stopper" />
   <bpmn:message id="Message_168cjx5" name="PopularTopic" />
   <bpmn:message id="Message_197rtvw" name="OurVideoWentViral" />
@@ -186,11 +186,11 @@
       <bpmn:outgoing>Flow_0jrz579</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:startEvent id="CreateMerchTimerTrigger" name="Friday at 4PM ">
-      <bpmn:documentation>Would be Date(0 0 16 ? * FRI)
-But for testing purposes Cycle(R/PT20S) is used</bpmn:documentation>
+      <bpmn:documentation>Would be Cycle(0 0 16 ? * FRI)
+But for testing purposes Cycle(R/PT20S) is use</bpmn:documentation>
       <bpmn:outgoing>Flow_14xkrio</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_1dgbv66">
-        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">0 0 16 ? * FRI</bpmn:timeDate>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 16 ? * FRI</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_17zr5f8" sourceRef="StartEvent_1" targetRef="Gateway_17k2oct" />
@@ -419,21 +419,21 @@ But for testing purposes Cycle(R/PT20S) is used</bpmn:documentation>
         <di:waypoint x="1390" y="440" />
         <di:waypoint x="1430" y="416" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Participant_1aia5yi_di" bpmnElement="Participant_1aia5yi" isHorizontal="true">
-        <dc:Bounds x="160" y="79" width="1500" height="80" />
+      <bpmndi:BPMNShape id="Participant_0nucxip_di" bpmnElement="Participant_0nucxip" isHorizontal="true">
+        <dc:Bounds x="160" y="220" width="1500" height="69" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_0nucxip_di" bpmnElement="Participant_0nucxip" isHorizontal="true">
-        <dc:Bounds x="160" y="179" width="460" height="110" />
+      <bpmndi:BPMNShape id="Participant_1aia5yi_di" bpmnElement="Participant_1aia5yi" isHorizontal="true">
+        <dc:Bounds x="160" y="99" width="1500" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1kdidlt_di" bpmnElement="Flow_1kdidlt">
-        <di:waypoint x="840" y="159" />
+        <di:waypoint x="840" y="179" />
         <di:waypoint x="840" y="430" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_07rsq4d_di" bpmnElement="Flow_07rsq4d">
         <di:waypoint x="810" y="430" />
-        <di:waypoint x="810" y="159" />
+        <di:waypoint x="810" y="179" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ask5qx_di" bpmnElement="Flow_1ask5qx">
         <di:waypoint x="390" y="289" />

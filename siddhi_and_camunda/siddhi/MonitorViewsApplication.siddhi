@@ -29,6 +29,22 @@ define stream LogStream (numberOfEvents long, video string);
         """)
     )
 )
+@sink(type='http',
+    method='POST',
+    publisher.url='http://localhost:8080/engine-rest/message',
+    headers = "'Host:localhost:8080",
+    @map(type='json',
+        @payload("""
+            {
+		        "messageName" : "VideoGoneViral_CreateMerch",
+		        "businessKey" : "siddhi",
+		        "processVariables" : {
+		            "videoId": { "value":"{{videoId}}", "type":"string"}
+		        }
+            }
+        """)
+    )
+)
 define stream VideoHasGoneViral(videoCount long, videoId string);
 
 --- COUNT TOPIC MENTIONS
