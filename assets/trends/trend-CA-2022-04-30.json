@@ -1,0 +1,51 @@
+{
+  "googleTrendingSearchList": [
+    {
+      "trendingSearchToken": "0bc4e36e-e30d-4b2f-abce-7626235d5e86:CA-20220430",
+      "trendingSearchTitle": {
+        "rankId": 1,
+        "searchTitle": "Memphis Grizzlies"
+      }
+    },
+    {
+      "trendingSearchToken": "e2458126-7dc0-4fd6-b525-f208f247fa3a:CA-20220430",
+      "trendingSearchTitle": {
+        "rankId": 2,
+        "searchTitle": "Winnipeg Jets"
+      }
+    },
+    {
+      "trendingSearchToken": "5cbb5b47-698b-4044-9a84-274d1dbe443b:CA-20220430",
+      "trendingSearchTitle": {
+        "rankId": 3,
+        "searchTitle": "Canadien de montreal"
+      }
+    },
+    {
+      "trendingSearchToken": "cdde0ff2-36c1-4d01-9992-7270ef0a2bbb:CA-20220430",
+      "trendingSearchTitle": {
+        "rankId": 4,
+        "searchTitle": "Hepatitis"
+      }
+    },
+    {
+      "trendingSearchToken": "90400011-ce9e-4cdf-a28d-0a452e93f08a:CA-20220430",
+      "trendingSearchTitle": {
+        "rankId": 5,
+        "searchTitle": "Heropanti 2"
+      }
+    },
+    {
+      "trendingSearchToken": "5307b530-1e87-40d2-85a7-8ee4994d93d0:CA-20220430",
+      "trendingSearchTitle": {
+        "rankId": 6,
+        "searchTitle": "PSY"
+      }
+    }
+  ],
+  "userRequestId": "requestId",
+  "friendlyFormattedDate": "Saturday, 30 April 2022",
+  "tokenExpirationTime": "Sunday, 01 May 2022 00:11:51",
+  "tokenExpirationTimeInUtc": "Saturday, 30 April 2022 14:11:51",
+  "errorMessage": "N/A"
+}

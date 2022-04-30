@@ -1,2 +1,0 @@
-file ../assets/cat1.mp4
-file ../assets/dog1.mp4
