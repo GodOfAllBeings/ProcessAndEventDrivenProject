@@ -73,10 +73,6 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{searches=='10'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0kmaxyv" sourceRef="Activity_0c29zps" targetRef="Activity_1arssgu" />
-    <bpmn:sendTask id="Activity_1arssgu" name="Isolate and send top 3" camunda:type="external" camunda:topic="SendTrends">
-      <bpmn:incoming>Flow_0kmaxyv</bpmn:incoming>
-      <bpmn:outgoing>Flow_06gyw3f</bpmn:outgoing>
-    </bpmn:sendTask>
     <bpmn:sequenceFlow id="Flow_06gyw3f" sourceRef="Activity_1arssgu" targetRef="Event_1y5myqu" />
     <bpmn:serviceTask id="Activity_0tu7ufb" name="Request Country Code" camunda:type="external" camunda:topic="RequestCountryCode">
       <bpmn:incoming>Flow_04vo199</bpmn:incoming>
@@ -111,10 +107,6 @@
     <bpmn:sequenceFlow id="Flow_0zintlt" sourceRef="Activity_19671co" targetRef="Gateway_1hssv2f" />
     <bpmn:sequenceFlow id="Flow_0achhnt" sourceRef="Activity_0tu7ufb" targetRef="Gateway_1hssv2f" />
     <bpmn:sequenceFlow id="Flow_1hvgph1" sourceRef="Gateway_1hssv2f" targetRef="Activity_050cycn" />
-    <bpmn:userTask id="Activity_0c29zps" name="Aggregate and sort trends by rank">
-      <bpmn:incoming>Flow_0pcboew</bpmn:incoming>
-      <bpmn:outgoing>Flow_0kmaxyv</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:endEvent id="Event_1e0o2tc">
       <bpmn:incoming>Flow_19g29ur</bpmn:incoming>
     </bpmn:endEvent>
@@ -177,6 +169,14 @@
     <bpmn:endEvent id="Event_1y5myqu" name="Trends Found">
       <bpmn:incoming>Flow_06gyw3f</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1arssgu" name="Isolate and send top 3" camunda:type="external" camunda:topic="SendTrends">
+      <bpmn:incoming>Flow_0kmaxyv</bpmn:incoming>
+      <bpmn:outgoing>Flow_06gyw3f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0c29zps" name="Aggregate and sort trends by rank" camunda:type="external" camunda:topic="SelectTopTrends">
+      <bpmn:incoming>Flow_0pcboew</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kmaxyv</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:signal id="Signal_0fg675t" name="NoMoreRequests" />
   <bpmn:message id="Message_0r0ypur" name="TrendsReceived" />
@@ -244,7 +244,7 @@
         <di:waypoint x="1575" y="370" />
         <di:waypoint x="1670" y="370" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1614" y="352" width="19" height="14" />
+          <dc:Bounds x="1615" y="352" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0lv6baw_di" bpmnElement="Flow_0lv6baw">
@@ -267,6 +267,12 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0xkhv5w_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="152" y="329" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qhzwek_di" bpmnElement="Activity_1arssgu">
+        <dc:Bounds x="1850" y="330" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15z9r1r_di" bpmnElement="Activity_0c29zps">
+        <dc:Bounds x="1670" y="330" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_050cycn_di" bpmnElement="Activity_050cycn" isExpanded="true">
         <dc:Bounds x="750" y="190" width="620" height="360" />
@@ -335,15 +341,6 @@
       <bpmndi:BPMNShape id="Gateway_04eizfj_di" bpmnElement="Gateway_04eizfj" isMarkerVisible="true">
         <dc:Bounds x="405" y="322" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1vn95d6_di" bpmnElement="Activity_1arssgu">
-        <dc:Bounds x="1850" y="330" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1y5myqu_di" bpmnElement="Event_1y5myqu">
-        <dc:Bounds x="2032" y="352" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2018" y="395" width="69" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0t74ody_di" bpmnElement="Activity_0tu7ufb">
         <dc:Bounds x="570" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -358,9 +355,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1hssv2f_di" bpmnElement="Gateway_1hssv2f" isMarkerVisible="true">
         <dc:Bounds x="675" y="322" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_12u1hpl_di" bpmnElement="Activity_0c29zps">
-        <dc:Bounds x="1670" y="330" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1e0o2tc_di" bpmnElement="Event_1e0o2tc">
         <dc:Bounds x="1472" y="112" width="36" height="36" />
@@ -416,6 +410,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1v3tfsj_di" bpmnElement="Activity_1v3tfsj">
         <dc:Bounds x="250" y="307" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1y5myqu_di" bpmnElement="Event_1y5myqu">
+        <dc:Bounds x="2032" y="352" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2018" y="395" width="69" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0nn0oki_di" bpmnElement="Event_15f8kqr">
         <dc:Bounds x="1232" y="172" width="36" height="36" />

@@ -48,17 +48,25 @@ client.subscribe("TrendAPICall", async function({ task, taskService }) {
   await taskService.complete(task);
 });
 
+client.subscribe("SelectTopTrends", async function({ task, taskService }) {
+    const processVariables = new Variables();
+    console.log("** Selecting top trends **");
+    await taskService.complete(task, processVariables);
+});
+
 // susbscribe to the topic: 'SendTrends'. This is the 'Isolate and send top 3' Send Task in the Find Trend diagram.
 // Should be the end of the flow
 client.subscribe("SendTrends", async function({ task, taskService }) {
     const trend1 = "cat";
     const trend2 = "dog";
     const trend3 = "bird";
-    
     const processVariables = new Variables();
     processVariables.set("trend1", trend1);
     processVariables.set("trend2", trend2);
     processVariables.set("trend3", trend3);
+
+    console.log("Process variables in SendTrends:");
+    console.log(processVariables);
 
     await taskService.complete(task, processVariables);
   });
