@@ -40,10 +40,10 @@ client.subscribe("TrendAPICall", async function({ task, taskService }) {
   console.log("** Performing API search on: " + countryCode + "**");
 
 // Limited to 10 per day
-  // let trendResp = await TrendAPI.main(countryCode);
-  // console.log("Trend Resp in findTrends.js");
-  // console.log(trendResp)
-  // TrendFilter.saveTrend(trendResp, countryCode);
+  let trendResp = await TrendAPI.main(countryCode);
+  console.log("Trend Resp in findTrends.js");
+  console.log(trendResp)
+  TrendFilter.saveTrend(trendResp, countryCode);
 
   await taskService.complete(task);
 });

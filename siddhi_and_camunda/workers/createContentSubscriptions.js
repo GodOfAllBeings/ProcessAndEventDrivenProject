@@ -24,9 +24,14 @@ const topics = {
 }
 
 client.subscribe(topics.GatherContent, async function({ task, taskService }) {
-   
+    const processVariables = new Variables();
+    const chosenTrend = task.variables.get("videoId");
+    if(chosenTrend != null) {
+        processVariables.set("chosenTrend", chosenTrend)
+    }
+
     console.log(`Task ${topics.GatherContent} completed`);
-    await taskService.complete(task);
+    await taskService.complete(task, processVariables);
 });
 
 client.subscribe(topics.SendVideos, async function({ task, taskService }) {

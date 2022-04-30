@@ -153,7 +153,7 @@ function mergeVideos() {
   });
 }
 
-getBestTrends();
+// getBestTrends();
 function getBestTrends() {
   let jsonTrends = createTrendArray();
   var allTrends = [];
