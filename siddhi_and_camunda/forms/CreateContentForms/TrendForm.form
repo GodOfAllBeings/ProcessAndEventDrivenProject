@@ -19,7 +19,7 @@
       "label": "Top 3 Trends",
       "type": "radio",
       "id": "Field_1w7qs48",
-      "key": "${chosenTrend"
+      "key": "chosenTrend"
     }
   ],
   "type": "default",
