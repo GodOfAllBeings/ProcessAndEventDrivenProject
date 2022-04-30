@@ -5,14 +5,14 @@
       "values": [
         {
           "value": "${trend1}",
-          "label": "${trend1}"
+          "label": "#{trend1}"
         },
         {
-          "label": "${trend2}",
+          "label": "#{trend2}",
           "value": "${trend2}"
         },
         {
-          "label": "${trend3}",
+          "label": "#{trend3}",
           "value": "${trend3}"
         }
       ],
