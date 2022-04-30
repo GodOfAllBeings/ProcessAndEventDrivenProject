@@ -153,7 +153,7 @@ function mergeVideos() {
   });
 }
 
-// getBestTrends();
+getBestTrends();
 function getBestTrends() {
   let jsonTrends = createTrendArray();
   var allTrends = [];
@@ -171,7 +171,28 @@ function getBestTrends() {
   const trendMapSort = new Map(
     [...trendMap.entries()].sort((a, b) => b[1] - a[1])
   );
-    // console.log(trendMapSort);
+  console.log(trendMapSort);
+
+
+  // const myKeys = trendMapSort.keySet();
+
+  // console.log("key set:");
+  // console.log(myKeys);
+
+  // const myKeysArray = trendMapSort.keySet().toArray();
+
+  // console.log("key array set:");
+  // console.log(myKeysArray);
+  
+  const trend1 = [...trendMapSort][0];
+  const trend2 = [...trendMapSort][1];
+  const trend3 = [...trendMapSort][2];
+  
+  console.log("Top 3:");
+  console.log(trend1);
+  console.log(trend2);
+  console.log(trend3);
+
   return trendMapSort;
 }
 module.exports = { saveTrend, getBestTrends, mergeVideos };
