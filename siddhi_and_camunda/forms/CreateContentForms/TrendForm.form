@@ -2,14 +2,24 @@
   "schemaVersion": 2,
   "components": [
     {
-      "label": "Trendfield",
-      "type": "textfield",
-      "id": "Field_1hq989t",
-      "key": "TrendField",
-      "description": "What is trending?",
-      "validate": {
-        "regularExpressionPattern": "Dog|Cat|Other"
-      }
+      "values": [
+        {
+          "value": "${trend1}",
+          "label": "${trend1}"
+        },
+        {
+          "label": "${trend2}",
+          "value": "${trend2}"
+        },
+        {
+          "label": "${trend3}",
+          "value": "${trend3}"
+        }
+      ],
+      "label": "Top 3 Trends",
+      "type": "radio",
+      "id": "Field_1w7qs48",
+      "key": "${chosenTrend"
     }
   ],
   "type": "default",

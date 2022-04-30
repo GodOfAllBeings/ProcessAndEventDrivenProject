@@ -34,12 +34,12 @@
         <bpmn:flowNodeRef>Activity_1ujih7h</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_06glybp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1rn9qxz</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_05fs4pq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_07e8o1p</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0clms27</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0p0dcu4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0aqpr2a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1sr7k7b</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_05fs4pq</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="Event_0v1rts8" name="Previous video has many interractions&#10;&#10;">
@@ -60,7 +60,7 @@
     <bpmn:userTask id="Activity_0mwxf82" name="Choose trend" camunda:formKey="">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="chosenTrend" label="Chosen Trend" type="string" defaultValue="cat" />
+          <camunda:formField id="chosenTrend" label="Chosen Trend" type="string" defaultValue="Cat" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1cj9fsn</bpmn:incoming>
@@ -91,10 +91,10 @@
     <bpmn:sequenceFlow id="Flow_0eqcxga" sourceRef="Gateway_0lw48bs" targetRef="Gateway_1qmtyvo" />
     <bpmn:sequenceFlow id="Flow_0r825et" sourceRef="Activity_14qal94" targetRef="Gateway_0lw48bs" />
     <bpmn:sequenceFlow id="Flow_1pqzqkx" name="No violations" sourceRef="Gateway_15qjb79" targetRef="Gateway_0lw48bs">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Violation_type == 'None'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Violation_type == ""}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1w1r2zc" name="Violations found" sourceRef="Gateway_15qjb79" targetRef="Activity_14qal94">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Violation_type != 'None'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Violation_type != ""}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_14xjwpv" sourceRef="Activity_0fxlley" targetRef="Gateway_15qjb79" />
     <bpmn:sequenceFlow id="Flow_046fg6x" sourceRef="Activity_09evq5z" targetRef="Activity_1sr7k7b" />
@@ -129,10 +129,10 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1muht5q" sourceRef="Activity_005cq4t" targetRef="Gateway_0g7grqt" />
     <bpmn:sequenceFlow id="Flow_149k287" name="No" sourceRef="Gateway_0g7grqt" targetRef="Gateway_04ld62p">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{chosenTrend=='Dog'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{TrendField=='Dog'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1k14mmj" name="Yes" sourceRef="Gateway_0g7grqt" targetRef="Activity_1ew08ok">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{chosenTrend!='Dog'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{TrendField!='Dog'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0jtkbik" sourceRef="Activity_1ew08ok" targetRef="Gateway_04ld62p" />
     <bpmn:sequenceFlow id="Flow_0dm7z3d" sourceRef="Gateway_1qmtyvo" targetRef="Activity_0dfuk9o" />
@@ -206,10 +206,6 @@
       <bpmn:outgoing>Flow_0yqeluu</bpmn:outgoing>
       <bpmn:outgoing>Flow_1ig16ns</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_05fs4pq" name="Add sponsored segment" camunda:type="external" camunda:topic="AddSponsorSegment">
-      <bpmn:incoming>Flow_0yqeluu</bpmn:incoming>
-      <bpmn:outgoing>Flow_16fsl9r</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="Gateway_07e8o1p">
       <bpmn:incoming>Flow_16fsl9r</bpmn:incoming>
       <bpmn:incoming>Flow_1ig16ns</bpmn:incoming>
@@ -225,10 +221,10 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0u60pok" sourceRef="Activity_06glybp" targetRef="Gateway_1rn9qxz" />
     <bpmn:sequenceFlow id="Flow_1ig16ns" name="No" sourceRef="Gateway_1rn9qxz" targetRef="Gateway_07e8o1p">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Sponsor_name == ''}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Sponsor_name == "''}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0yqeluu" name="Yes" sourceRef="Gateway_1rn9qxz" targetRef="Activity_05fs4pq">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Sponsor_name != ''}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{Sponsor_name != "''}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_16fsl9r" sourceRef="Activity_05fs4pq" targetRef="Gateway_07e8o1p" />
     <bpmn:sequenceFlow id="Flow_0m3qvgj" sourceRef="Gateway_07e8o1p" targetRef="Activity_0clms27" />
@@ -241,6 +237,10 @@
       <bpmn:outgoing>Flow_15hr4ij</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_15hr4ij" sourceRef="Activity_1sr7k7b" targetRef="Event_0aqpr2a" />
+    <bpmn:serviceTask id="Activity_05fs4pq" name="Add sponsored segment" camunda:type="external" camunda:topic="AddSponsorSegment">
+      <bpmn:incoming>Flow_0yqeluu</bpmn:incoming>
+      <bpmn:outgoing>Flow_16fsl9r</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:message id="SponserRequest" name="SponserRequest" />
   <bpmn:message id="VideoRequest" name="VideoRequest" />
@@ -278,14 +278,14 @@
         <di:waypoint x="2050" y="230" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_16fsl9r_di" bpmnElement="Flow_16fsl9r">
-        <di:waypoint x="1910" y="230" />
+        <di:waypoint x="1940" y="230" />
         <di:waypoint x="1965" y="230" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0yqeluu_di" bpmnElement="Flow_0yqeluu">
         <di:waypoint x="1775" y="230" />
-        <di:waypoint x="1810" y="230" />
+        <di:waypoint x="1840" y="230" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1781" y="215" width="18" height="14" />
+          <dc:Bounds x="1794" y="215" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ig16ns_di" bpmnElement="Flow_1ig16ns">
@@ -535,9 +535,6 @@
       <bpmndi:BPMNShape id="Gateway_1rn9qxz_di" bpmnElement="Gateway_1rn9qxz" isMarkerVisible="true">
         <dc:Bounds x="1725" y="205" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_02lkmhj_di" bpmnElement="Activity_05fs4pq">
-        <dc:Bounds x="1810" y="190" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_07e8o1p_di" bpmnElement="Gateway_07e8o1p" isMarkerVisible="true">
         <dc:Bounds x="1965" y="205" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -552,6 +549,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1xxowlq_di" bpmnElement="Activity_1sr7k7b">
         <dc:Bounds x="2470" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02lkmhj_di" bpmnElement="Activity_05fs4pq">
+        <dc:Bounds x="1840" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
