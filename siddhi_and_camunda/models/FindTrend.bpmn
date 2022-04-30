@@ -43,7 +43,7 @@
       <bpmn:sendTask id="Activity_0jzl3tm" name="Make API Call" camunda:type="external" camunda:topic="TrendAPICall">
         <bpmn:extensionElements>
           <camunda:inputOutput>
-            <camunda:inputParameter name="Input_09ndcv3">${countryCode}</camunda:inputParameter>
+            <camunda:outputParameter name="countryCode">${countryCode}</camunda:outputParameter>
           </camunda:inputOutput>
         </bpmn:extensionElements>
         <bpmn:incoming>Flow_1cx2vue</bpmn:incoming>

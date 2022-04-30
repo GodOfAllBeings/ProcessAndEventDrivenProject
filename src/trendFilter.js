@@ -19,7 +19,7 @@ function saveTrend(trendRes, country) {
   // stringify JSON Object. Argument 3 makes json pretty
   let trendString = JSON.stringify(trendRes, null, 2);
   console.log("Saving trends for country: " + country);
-  console.log(trendString);
+  // console.log(trendString);
 
   // fs.writeFile(`${trendFilePath}/trend-${country}-${(new Date().toJSON().slice(0,10))}.json`, trendString, 'utf8', function (err) {
   fs.writeFile(
@@ -174,4 +174,4 @@ function getBestTrends() {
     // console.log(trendMapSort);
   return trendMapSort;
 }
-module.exports = { saveTrend, getBestTrends };
+module.exports = { saveTrend, getBestTrends, mergeVideos };

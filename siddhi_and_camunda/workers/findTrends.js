@@ -37,12 +37,14 @@ client.subscribe("RequestCountryCode", async function({ task, taskService }) {
 // It will poll to this topic until this program completes it
 client.subscribe("TrendAPICall", async function({ task, taskService }) {
   const countryCode = task.variables.get("countryCode");
-  // const countryCode = countryCodes[countriesSearched];
   console.log("** Performing API search on: " + countryCode + "**");
-  let trendResp = await TrendAPI.main(countryCode);
-  console.log("Trend Resp in findTrends.js");
-  console.log(trendResp)
-  TrendFilter.saveTrend(trendResp, countryCode);
+
+// Limited to 10 per day
+  // let trendResp = await TrendAPI.main(countryCode);
+  // console.log("Trend Resp in findTrends.js");
+  // console.log(trendResp)
+  // TrendFilter.saveTrend(trendResp, countryCode);
+
   await taskService.complete(task);
 });
 

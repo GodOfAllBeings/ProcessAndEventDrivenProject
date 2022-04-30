@@ -184,7 +184,7 @@ const doesVideosForTrendExists = (trend) => {
 
 // The scheduler is set to 20:00 localtime.
 const schedule = require("node-schedule");
-const Trends = require("./trends_test.js");
+const Trends = require("./trendAPI.js");
 const TrendFilter = require("./trendFilter.js");
 const { exit } = require("process");
 
@@ -206,15 +206,16 @@ var scheduler = schedule.scheduleJob("0 51 14 * * *", function () {
 });
 
 // concatVideo("cat");
-let bestTrends = TrendFilter.getBestTrends();
-bestTrends.forEach(function (value, key) {
-  if (doesVideosForTrendExists(key)) {
-    concatVideo(key);
-  }
-});
+// let bestTrends = TrendFilter.getBestTrends();
+// bestTrends.forEach(function (value, key) {
+//   if (doesVideosForTrendExists(key)) {
+//     concatVideo(key);
+//   }
+// });
 
 // We know there are at least a couple (minimalVideos) amount of videos.
 // Lets find them and create a compilation
+// concatVideo("cat");
 function concatVideo(trend) {
   let videosMatchingTrend = getAllVideoWithPartOfName(trend);
   let outputFilePath = merge(videosMatchingTrend, trend);
@@ -236,3 +237,5 @@ var scheduler = schedule.scheduleJob("0 0 20 * * *", function () {
   });
   // trend = findBestTrend();
 });
+
+module.exports = { concatVideo };
