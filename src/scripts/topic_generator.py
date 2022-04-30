@@ -3,7 +3,7 @@ import time;
 import urllib3
 import json
 
-dict = ["9/11", "7/11", "4/20"]
+dict = ["a", "b", "c"]
 
 http = urllib3.PoolManager()
 
