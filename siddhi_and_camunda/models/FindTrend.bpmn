@@ -77,9 +77,6 @@
       <bpmn:incoming>Flow_0kmaxyv</bpmn:incoming>
       <bpmn:outgoing>Flow_06gyw3f</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:endEvent id="Event_1y5myqu" name="Trends Found">
-      <bpmn:incoming>Flow_06gyw3f</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_06gyw3f" sourceRef="Activity_1arssgu" targetRef="Event_1y5myqu" />
     <bpmn:serviceTask id="Activity_0tu7ufb" name="Request Country Code" camunda:type="external" camunda:topic="RequestCountryCode">
       <bpmn:incoming>Flow_04vo199</bpmn:incoming>
@@ -169,7 +166,7 @@
     <bpmn:userTask id="Activity_1v3tfsj" name="Perform trend search">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="manual" label="manual" type="string" defaultValue="yes" />
+          <camunda:formField id="manual" label="manual" type="string" defaultValue="no" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_12t03ts</bpmn:incoming>
@@ -177,6 +174,9 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_12t03ts" sourceRef="StartEvent_1" targetRef="Activity_1v3tfsj" />
     <bpmn:sequenceFlow id="Flow_1e95pxe" sourceRef="Activity_1v3tfsj" targetRef="Gateway_04eizfj" />
+    <bpmn:endEvent id="Event_1y5myqu" name="Trends Found">
+      <bpmn:incoming>Flow_06gyw3f</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:signal id="Signal_0fg675t" name="NoMoreRequests" />
   <bpmn:message id="Message_0r0ypur" name="TrendsReceived" />

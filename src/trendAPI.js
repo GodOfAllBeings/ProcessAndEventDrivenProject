@@ -74,7 +74,7 @@ async function getTrendsData(requestedCountry) {
   return result;
 }
 
-complete();
+// complete();
 async function complete() {
 
   var data = JSON.stringify({

@@ -39,25 +39,12 @@ client.subscribe("TrendAPICall", async function({ task, taskService }) {
   const countryCode = task.variables.get("countryCode");
   // const countryCode = countryCodes[countriesSearched];
   console.log("** Performing API search on: " + countryCode + "**");
-  // let trendResp = await TrendAPI.main(countryCode);
-  // console.log("Trend Resp in findTrends.js");
-  // console.log(trendResp)
-  // TrendFilter.saveTrend(trendResp, countryCode);
+  let trendResp = await TrendAPI.main(countryCode);
+  console.log("Trend Resp in findTrends.js");
+  console.log(trendResp)
+  TrendFilter.saveTrend(trendResp, countryCode);
   await taskService.complete(task);
-  await TrendAPI.complete();
 });
-
-// testFunc("CA");
-// function testFunc(countryCode) {
-//   let trendResp = await TrendAPI.main(countryCode);
-//   console.log("Trend Resp in findTrends.js");
-//   console.log(trendResp)
-//   TrendFilter.saveTrend(trendResp, countryCode);
-// }
-comp();
-async function comp() {
-  TrendAPI.complete();
-}
 
 // susbscribe to the topic: 'SendTrends'. This is the 'Isolate and send top 3' Send Task in the Find Trend diagram.
 // Should be the end of the flow
